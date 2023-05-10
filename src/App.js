@@ -34,16 +34,14 @@ function App() {
     priority_level: 0,
     completion_status: false
   });
-    // set state for edit employee
-    // const [editEmployee, setEditEmployee] = useState({
-    //   id: '',
-    //   employee_first_name: '',
-    //   employee_last_name: '',
-    //   department_name: ''
-    // });
-    const [deleteEmployee, setDeleteEmployee] = useState({
-      id: '',
-    });
+  // set state for edit employee
+  // const [editEmployee, setEditEmployee] = useState({
+  //   id: '',
+  //   employee_first_name: '',
+  //   employee_last_name: '',
+  //   department_name: ''
+  // });
+  const [deleteEmployeeId, setDeleteEmployeeId] = useState('');
 
 
   // onChange handler for each input for task
@@ -190,17 +188,17 @@ function App() {
           First Name:
           <input type="text" value={firstName} onChange={handleFirstNameChange} />
         </label>
-        <br/>
+        <br />
         <label>
           Last Name:
           <input type="text" value={lastName} onChange={handleLastNameChange} />
         </label>
-        <br/>
+        <br />
         <label>
           Department:
           <input type="text" value={department} onChange={handleDepartmentChange} />
         </label>
-        <br/>
+        <br />
         <button type="submit">Add Employee</button>
       </form>
 
@@ -254,7 +252,7 @@ function App() {
         <p>Assign to: {task.assigned_to}</p>
         <p>Description: {task.description}</p>
         <p>Priority: {task.priority_level}</p>
-        <p>Completion status: {task.completion_status ? 'Complete' : 'Incomplete'}</p> 
+        <p>Completion status: {task.completion_status ? 'Complete' : 'Incomplete'}</p>
       </div>
 
       {/* <h2>Edit employee</h2>
@@ -278,12 +276,13 @@ function App() {
       </form> */}
 
       <h2>Delete Employee</h2>
+
       <input
         type="text"
-        value={deleteEmployee.id}
-        onChange={(e) => setDeleteEmployee({ ...deleteEmployee, id: e.target.value })}
+        value={deleteEmployeeId}
+        onChange={(e) => setDeleteEmployeeId(e.target.value)}
       />
-      <button onClick={() => handleDeleteEmployee(6)}>Delete Employee</button>
+      <button onClick={() => handleDeleteEmployee(deleteEmployeeId)}>Delete Employee</button>
 
       <ul>
         <h3> All Employees</h3>
