@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 function App() {
-  // set state for all employees and task
+  // get state for all employees and task
   const [allEmployees, getEmployees] = useState([]);
   const [allTasks, getTasks] = useState([]);
 
@@ -16,6 +16,24 @@ function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [department, setDepartment] = useState('');
+
+  // set state for one employee
+  const [employee, setEmployee] = useState({
+    id: '',
+    employee_first_name: '',
+    employee_last_name: '',
+    department_name: '',
+  });
+
+  // set state for one task
+  const [task, setTask] = useState({
+    id: '',
+    assigned_to: 0,
+    description: '',
+    priority_level: 0,
+    completion_status: false
+  });
+
 
   // onChange handler for each input for task
   const handleDescriptionChange = (event) => {
@@ -38,6 +56,7 @@ function App() {
   const handleDepartmentChange = (event) => {
     setDepartment(event.target.value);
   };
+
 
   const fetchAllTasks = () => {
     axios.get('http://localhost:4000/tasks')
@@ -107,32 +126,31 @@ function App() {
         console.error(error);
       });
   };
+  // get request AI call
+  const getOneEmployee = async () => {
+    try {
+      const response = await axios.get(`http://localhost:4000/employees/${employee.id}`);
+      setEmployee(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  const getOneTask = async () => {
+    try {
+      const response = await axios.get(`http://localhost:4000/tasks/${task.id}`);
+      setTask(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
 
   return (
     <div className='App'>
       <button onClick={fetchAllEmployees}>Fetch Employees</button>
       <button onClick={fetchAllTasks}>Fetch Task</button>
-
-      <h1> Add a new Task</h1>
-      <form onSubmit={handleSubmitTasks}>
-        <label>
-          Description:
-          <input type="text" value={description} onChange={handleDescriptionChange} />
-        </label>
-        <br />
-        <label>
-          Priority Level:
-          <input type="number" value={priorityLevel} onChange={handlePriorityLevelChange} />
-        </label>
-        <br />
-        <label>
-          Completion Status:
-          <input type="checkbox" checked={completionStatus} onChange={handleCompletionStatusChange} />
-        </label>
-        <br />
-        <button type="submit">Add Task</button>
-      </form>
 
       <h1> Add a new Employee</h1>
       <form onSubmit={handleSubmitEmployees}>
@@ -154,6 +172,53 @@ function App() {
         <button type="submit">Add Employee</button>
       </form>
 
+      <h1> Add a new Task</h1>
+      <form onSubmit={handleSubmitTasks}>
+        <label>
+          Description:
+          <input type="text" value={description} onChange={handleDescriptionChange} />
+        </label>
+        <br />
+        <label>
+          Priority Level:
+          <input type="number" value={priorityLevel} onChange={handlePriorityLevelChange} />
+        </label>
+        <br />
+        <label>
+          Completion Status:
+          <input type="checkbox" checked={completionStatus} onChange={handleCompletionStatusChange} />
+        </label>
+        <br />
+        <button type="submit">Add Task</button>
+      </form>
+      {/* Search employee */}
+      <h2>Search for a employee</h2>
+      <input
+        type="text"
+        value={employee.id}
+        onChange={(e) => setEmployee({ ...employee, id: e.target.value })}
+      />
+      <button onClick={getOneEmployee}>Search Employee</button>
+      <div>
+        <p>ID: {employee.id}</p>
+        <p>First Name: {employee.employee_first_name}</p>
+        <p>Last Name: {employee.employee_last_name}</p>
+        <p>Department: {employee.department_name}</p>
+      </div>
+      <h2>Search for a Task</h2>
+      <input
+        type="text"
+        value={task.id}
+        onChange={(e) => setTask({ ...task, id: e.target.value })}
+      />
+      <button onClick={getOneTask}>Search Task</button>
+      <div>
+        <p>ID: {task.id}</p>
+        <p>Assign to: {task.assigned_to}</p>
+        <p>Description: {task.description}</p>
+        <p>Priority: {task.priority_level}</p>
+      </div>
+
 
       <ul>
         <h3> All Employees</h3>
@@ -165,7 +230,7 @@ function App() {
       </ul>
       <p> </p>
       <ul>
-          <h3> All Task</h3>
+        <h3> All Task</h3>
         {allTasks.map(allTasks => (
           <li key={allTasks.id}>
             {allTasks.description} - Priority: {allTasks.priority_level} - Completion: {allTasks.completion_status ? 'Complete' : 'Incomplete'}
