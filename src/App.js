@@ -224,7 +224,7 @@ function App() {
         <h3> All Employees</h3>
         {allEmployees.map(allEmployees => (
           <li key={allEmployees.id}>
-            {allEmployees.id} {allEmployees.employee_first_name} {allEmployees.employee_last_name} - {allEmployees.department_name}
+            ID: {allEmployees.id}, First Name: {allEmployees.employee_first_name}, Last Name: {allEmployees.employee_last_name}, Department: {allEmployees.department_name}
           </li>
         ))}
       </ul>
@@ -233,7 +233,7 @@ function App() {
         <h3> All Task</h3>
         {allTasks.map(allTasks => (
           <li key={allTasks.id}>
-            {allTasks.description} - Priority: {allTasks.priority_level} - Completion: {allTasks.completion_status ? 'Complete' : 'Incomplete'}
+            ID: {allTasks.id}, Assign To: {allTasks.assigned_to}, Description: {allTasks.description}, Priority: {allTasks.priority_level}, Completion: {allTasks.completion_status ? 'Complete' : 'Incomplete'}
           </li>
         ))}
       </ul>
