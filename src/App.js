@@ -33,6 +33,16 @@ function App() {
     priority_level: 0,
     completion_status: false
   });
+    // set state for edit employee
+    // const [editEmployee, setEditEmployee] = useState({
+    //   id: '',
+    //   employee_first_name: '',
+    //   employee_last_name: '',
+    //   department_name: ''
+    // });
+    const [deleteEmployee, setDeleteEmployee] = useState({
+      id: '',
+    });
 
 
   // onChange handler for each input for task
@@ -67,8 +77,6 @@ function App() {
         console.error(error);
       });
   };
-
-
   // Function to handle button click
   const fetchAllEmployees = () => {
     axios.get('http://localhost:4000/employees')
@@ -126,7 +134,7 @@ function App() {
         console.error(error);
       });
   };
-  // get request AI call
+  // get one employee request API call
   const getOneEmployee = async () => {
     try {
       const response = await axios.get(`http://localhost:4000/employees/${employee.id}`);
@@ -135,8 +143,7 @@ function App() {
       console.error(error);
     }
   };
-
-
+  // get one task request API call
   const getOneTask = async () => {
     try {
       const response = await axios.get(`http://localhost:4000/tasks/${task.id}`);
@@ -145,6 +152,26 @@ function App() {
       console.error(error);
     }
   }
+
+  const handleDeleteEmployee = async (employeeId) => {
+    try {
+      await axios.delete(`http://localhost:4000/employees/${employeeId}`);
+      console.log('Employee deleted'); // Optional: Display a success message
+      // Perform any additional actions after deleting the employee
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // const handleUpdateEmployee = async (employeeId, updatedEmployee) => {
+  //   try {
+  //     const response = await axios.put(`http://localhost:4000/employees/${employeeId}`, updatedEmployee);
+  //     console.log(response.data); // Optional: Display the response data
+  //     // Perform any additional actions after updating the employee
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
 
   return (
@@ -158,17 +185,17 @@ function App() {
           First Name:
           <input type="text" value={firstName} onChange={handleFirstNameChange} />
         </label>
-        <br />
+        <br/>
         <label>
           Last Name:
           <input type="text" value={lastName} onChange={handleLastNameChange} />
         </label>
-        <br />
+        <br/>
         <label>
           Department:
           <input type="text" value={department} onChange={handleDepartmentChange} />
         </label>
-        <br />
+        <br/>
         <button type="submit">Add Employee</button>
       </form>
 
@@ -219,6 +246,32 @@ function App() {
         <p>Priority: {task.priority_level}</p>
       </div>
 
+      {/* <h2>Edit employee</h2>
+      <form onSubmit={handleUpdateEmployee}>
+      <label onSubmit={handleSubmitTasks}>
+          First Name:
+          <input type="text" value={firstName} onChange={handleFirstNameChange} />
+        </label>
+        <br/>
+        <label>
+          Last Name:
+          <input type="text" value={lastName} onChange={handleLastNameChange} />
+        </label>
+        <br/>
+        <label>
+          Department:
+          <input type="text" value={department} onChange={handleDepartmentChange} />
+        </label>
+        <br/>
+        <button type="submit">Update Employee</button>
+      </form> */}
+      <h2>Delete Employee</h2>
+      <input
+        type="text"
+        value={deleteEmployee.id}
+        onChange={(e) => setDeleteEmployee({ ...deleteEmployee, id: e.target.value })}
+      />
+      <button onClick={() => handleDeleteEmployee(deleteEmployee)}>Delete Employee</button>
 
       <ul>
         <h3> All Employees</h3>
