@@ -42,6 +42,7 @@ function App() {
   //   department_name: ''
   // });
   const [deleteEmployeeId, setDeleteEmployeeId] = useState('');
+  const [deleteTaskId, setDeleteTaskId] = useState('');
 
 
   // onChange handler for each input for task
@@ -166,6 +167,16 @@ function App() {
     }
   };
 
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await axios.delete(`http://localhost:4000/tasks/${taskId}`);
+      console.log('Task deleted'); // Optional: Display a success message
+      // Perform any additional actions after deleting the employee
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // const handleUpdateEmployee = async (employeeId, updatedEmployee) => {
   //   try {
   //     const response = await axios.put(`http://localhost:4000/employees/${employeeId}`, updatedEmployee);
@@ -276,13 +287,20 @@ function App() {
       </form> */}
 
       <h2>Delete Employee</h2>
-
       <input
         type="text"
         value={deleteEmployeeId}
         onChange={(e) => setDeleteEmployeeId(e.target.value)}
       />
       <button onClick={() => handleDeleteEmployee(deleteEmployeeId)}>Delete Employee</button>
+
+      <h2>Delete Task</h2>
+      <input
+        type="text"
+        value={deleteTaskId}
+        onChange={(e) => setDeleteTaskId(e.target.value)}
+      />
+      <button onClick={() => handleDeleteTask(deleteTaskId)}>Delete Task</button>
 
       <ul>
         <h3> All Employees</h3>
