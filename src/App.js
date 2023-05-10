@@ -9,6 +9,7 @@ function App() {
 
   // set states for add a task
   const [description, setDescription] = useState('');
+  const [assignTo, setAssignTo] = useState('');
   const [priorityLevel, setPriorityLevel] = useState(0);
   const [completionStatus, setCompletionStatus] = useState(false);
 
@@ -48,6 +49,9 @@ function App() {
   // onChange handler for each input for task
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
+  };
+  const handleAssignToChange = (event) => {
+    setAssignTo(event.target.value);
   };
   const handlePriorityLevelChange = (event) => {
     setPriorityLevel(event.target.value);
@@ -93,6 +97,7 @@ function App() {
 
     const newTask = {
       description: description,
+      assigned_to: assignTo,
       priority_level: priorityLevel,
       completion_status: completionStatus
     };
@@ -207,6 +212,11 @@ function App() {
         </label>
         <br />
         <label>
+          Assigned to:
+          <input type="text" value={assignTo} onChange={handleAssignToChange} />
+        </label>
+        <br />
+        <label>
           Priority Level:
           <input type="number" value={priorityLevel} onChange={handlePriorityLevelChange} />
         </label>
@@ -244,6 +254,7 @@ function App() {
         <p>Assign to: {task.assigned_to}</p>
         <p>Description: {task.description}</p>
         <p>Priority: {task.priority_level}</p>
+        <p>Completion status: {task.completion_status ? 'Complete' : 'Incomplete'}</p> 
       </div>
 
       {/* <h2>Edit employee</h2>
@@ -265,13 +276,14 @@ function App() {
         <br/>
         <button type="submit">Update Employee</button>
       </form> */}
+
       <h2>Delete Employee</h2>
       <input
         type="text"
         value={deleteEmployee.id}
         onChange={(e) => setDeleteEmployee({ ...deleteEmployee, id: e.target.value })}
       />
-      <button onClick={() => handleDeleteEmployee(deleteEmployee)}>Delete Employee</button>
+      <button onClick={() => handleDeleteEmployee(6)}>Delete Employee</button>
 
       <ul>
         <h3> All Employees</h3>
