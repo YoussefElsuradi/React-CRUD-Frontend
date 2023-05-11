@@ -72,7 +72,7 @@ function App() {
 
 
   const fetchAllTasks = () => {
-    axios.get('http://localhost:4000/tasks')
+    axios.get('https://node-crud88.herokuapp.com/tasks')
       .then(response => {
         getTasks(response.data);
       })
@@ -82,7 +82,7 @@ function App() {
   };
   // Function to handle button click
   const fetchAllEmployees = () => {
-    axios.get('http://localhost:4000/employees')
+    axios.get('https://node-crud88.herokuapp.com/employees')
       .then(response => {
         getEmployees(response.data);
       })
@@ -101,7 +101,7 @@ function App() {
       completion_status: completionStatus
     };
 
-    axios.post('http://localhost:4000/tasks', newTask)
+    axios.post('https://node-crud88.herokuapp.com/tasks', newTask)
       .then(response => {
         // Handle successful response
         console.log(response.data);
@@ -124,7 +124,7 @@ function App() {
       department_name: department
     };
 
-    axios.post('http://localhost:4000/employees', newEmployee)
+    axios.post('https://node-crud88.herokuapp.com/employees', newEmployee)
       .then(response => {
         // Handle successful response
         console.log(response.data);
@@ -141,7 +141,7 @@ function App() {
   // get one employee request API call
   const getOneEmployee = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/employees/${employee.id}`);
+      const response = await axios.get(`https://node-crud88.herokuapp.com/employees/${employee.id}`);
       setEmployee(response.data);
     } catch (error) {
       console.error(error);
@@ -150,7 +150,7 @@ function App() {
   // get one task request API call
   const getOneTask = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/tasks/${task.id}`);
+      const response = await axios.get(`https://node-crud88.herokuapp.com/tasks/${task.id}`);
       setTask(response.data);
     } catch (error) {
       console.error(error);
@@ -159,7 +159,7 @@ function App() {
 
   const handleDeleteEmployee = async (employeeId) => {
     try {
-      await axios.delete(`http://localhost:4000/employees/${employeeId}`);
+      await axios.delete(`https://node-crud88.herokuapp.com/employees/${employeeId}`);
       console.log('Employee deleted'); // Optional: Display a success message
       // Perform any additional actions after deleting the employee
     } catch (error) {
@@ -169,7 +169,7 @@ function App() {
 
   const handleDeleteTask = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:4000/tasks/${taskId}`);
+      await axios.delete(`https://node-crud88.herokuapp.com/tasks/${taskId}`);
       console.log('Task deleted'); // Optional: Display a success message
       // Perform any additional actions after deleting the employee
     } catch (error) {
