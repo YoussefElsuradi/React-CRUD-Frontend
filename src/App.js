@@ -43,6 +43,16 @@ function App() {
     department_name: ''
   });
 
+  // set state for edit employee
+  const [editTask, setEditTask] = useState({
+    id: '',
+    assigned_to: '',
+    description: '',
+    priority_level: 0,
+    completion_status: false
+  });
+
+
   const [deleteEmployeeId, setDeleteEmployeeId] = useState('');
   const [deleteTaskId, setDeleteTaskId] = useState('');
 
@@ -71,7 +81,7 @@ function App() {
     setDepartment(event.target.value);
   };
 
-  
+
 
   const handleEditEmployeeChange = (event) => {
     setEditEmployee({
@@ -79,6 +89,13 @@ function App() {
       [event.target.name]: event.target.value
     });
   };
+  const handleEditTaskChange = (event) => {
+    setEditTask({
+      ...editTask,
+      [event.target.name]: event.target.value
+    });
+  };
+
 
   const fetchAllTasks = () => {
     axios.get('http://localhost:4000/tasks')
@@ -210,6 +227,31 @@ function App() {
     }
   };
 
+  const handleUpdateTask = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.put(
+        `http://localhost:4000/tasks/${editTask.id}`,
+        editTask
+      );
+
+      console.log(response.data); // Optional: Display the response data
+      // Perform any additional actions after updating the task
+
+      // Reset the editTask state
+      setEditTask({
+        id: '',
+        assigned_to: '',
+        description: '',
+        priority_level: 0,
+        completion_status: false
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   return (
     <div className='App'>
@@ -334,6 +376,62 @@ function App() {
         <br />
         <button type="submit">Update Employee</button>
       </form>
+
+      <h2>Edit Task</h2>
+      <form onSubmit={handleUpdateTask}>
+        <label>
+          ID:
+          <input
+            type="text"
+            name="id"
+            value={editTask.id}
+            onChange={handleEditTaskChange}
+          />
+        </label>
+        <br />
+        <label>
+          Assign To:
+          <input
+            type="text"
+            name="assigned_to"
+            value={editTask.assigned_to}
+            onChange={handleEditTaskChange}
+          />
+        </label>
+        <br />
+        <label>
+          Description:
+          <input
+            type="text"
+            name="description"
+            value={editTask.description}
+            onChange={handleEditTaskChange}
+          />
+        </label>
+        <br />
+        <label>
+          Priority Level:
+          <input
+            type="number"
+            name="priority_level"
+            value={editTask.priority_level}
+            onChange={handleEditTaskChange}
+          />
+        </label>
+        <br />
+        <label>
+          Completion Status:
+          <input
+            type="checkbox"
+            name="completion_status"
+            checked={editTask.completion_status}
+            onChange={handleEditTaskChange}
+          />
+        </label>
+        <br />
+        <button type="submit">Update Task</button>
+      </form>
+
 
       <h2>Delete Employee</h2>
       <input
