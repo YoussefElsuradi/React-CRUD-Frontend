@@ -34,16 +34,17 @@ function App() {
     priority_level: 0,
     completion_status: false
   });
+
   // set state for edit employee
-  // const [editEmployee, setEditEmployee] = useState({
-  //   id: '',
-  //   employee_first_name: '',
-  //   employee_last_name: '',
-  //   department_name: ''
-  // });
+  const [editEmployee, setEditEmployee] = useState({
+    id: '',
+    employee_first_name: '',
+    employee_last_name: '',
+    department_name: ''
+  });
+
   const [deleteEmployeeId, setDeleteEmployeeId] = useState('');
   const [deleteTaskId, setDeleteTaskId] = useState('');
-
 
   // onChange handler for each input for task
   const handleDescriptionChange = (event) => {
@@ -70,6 +71,14 @@ function App() {
     setDepartment(event.target.value);
   };
 
+  
+
+  const handleEditEmployeeChange = (event) => {
+    setEditEmployee({
+      ...editEmployee,
+      [event.target.name]: event.target.value
+    });
+  };
 
   const fetchAllTasks = () => {
     axios.get('http://localhost:4000/tasks')
@@ -177,15 +186,29 @@ function App() {
     }
   };
 
-  // const handleUpdateEmployee = async (employeeId, updatedEmployee) => {
-  //   try {
-  //     const response = await axios.put(`http://localhost:4000/employees/${employeeId}`, updatedEmployee);
-  //     console.log(response.data); // Optional: Display the response data
-  //     // Perform any additional actions after updating the employee
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const handleUpdateEmployee = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.put(
+        `http://localhost:4000/employees/${editEmployee.id}`,
+        editEmployee
+      );
+
+      console.log(response.data); // Optional: Display the response data
+      // Perform any additional actions after updating the employee
+
+      // Reset the editEmployee state
+      setEditEmployee({
+        id: '',
+        employee_first_name: '',
+        employee_last_name: '',
+        department_name: ''
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
   return (
@@ -214,6 +237,7 @@ function App() {
       </form>
 
       <h1> Add a new Task</h1>
+      <h4>Can't create a teask thats assign to no one</h4>
       <form onSubmit={handleSubmitTasks}>
         <label>
           Description:
@@ -266,25 +290,50 @@ function App() {
         <p>Completion status: {task.completion_status ? 'Complete' : 'Incomplete'}</p>
       </div>
 
-      {/* <h2>Edit employee</h2>
+      <h2>Edit employee</h2>
       <form onSubmit={handleUpdateEmployee}>
-      <label onSubmit={handleSubmitTasks}>
-          First Name:
-          <input type="text" value={firstName} onChange={handleFirstNameChange} />
+        <label>
+          ID:
+          <input
+            type="text"
+            name="id"
+            value={editEmployee.id}
+            onChange={handleEditEmployeeChange}
+          />
         </label>
-        <br/>
+        <br />
+        <label>
+          First Name:
+          <input
+            type="text"
+            name="employee_first_name"
+            value={editEmployee.employee_first_name}
+            onChange={handleEditEmployeeChange}
+          />
+        </label>
+        <br />
         <label>
           Last Name:
-          <input type="text" value={lastName} onChange={handleLastNameChange} />
+          <input
+            type="text"
+            name="employee_last_name"
+            value={editEmployee.employee_last_name}
+            onChange={handleEditEmployeeChange}
+          />
         </label>
-        <br/>
+        <br />
         <label>
           Department:
-          <input type="text" value={department} onChange={handleDepartmentChange} />
+          <input
+            type="text"
+            name="department_name"
+            value={editEmployee.department_name}
+            onChange={handleEditEmployeeChange}
+          />
         </label>
-        <br/>
+        <br />
         <button type="submit">Update Employee</button>
-      </form> */}
+      </form>
 
       <h2>Delete Employee</h2>
       <input
