@@ -5,7 +5,9 @@ import {
   AllEmployeesContainer,
   EmployeeContainer,
   AllTasksContainer,
-  TaskContainer
+  TaskContainer,
+  NewTaskContainer,
+  EditTaskContainer
 } from './components/containers';
 
 function App() {
@@ -15,11 +17,13 @@ function App() {
         <h1>Employee Management app </h1>
       </header> */}
       <Routes>
-        <Route path="/" element={<HomePageContainer />} />
-        <Route path="/employees" element={<AllEmployeesContainer />} />
-        <Route path="/employee" element={<EmployeeContainer />} />
-        <Route path="/tasks" element={<AllTasksContainer />} />
-        <Route path="/task" element={<TaskContainer />} />
+        <Route exact path="/" element={<HomePageContainer />} />
+        <Route exact path="/employees" element={<AllEmployeesContainer />} />
+        <Route exact path="/employee/:id" element={<EmployeeContainer />} />
+        <Route exact path="/tasks" element={<AllTasksContainer />} />
+        <Route exact path="/newtask" element={<NewTaskContainer />} />
+        <Route exact path="/task/:id" element={<TaskContainer />} />
+        <Route exact path="/edittask/:id" element={<EditTaskContainer />} />
       </Routes>
     </div>
   );
