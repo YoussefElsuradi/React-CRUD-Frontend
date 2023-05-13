@@ -1,17 +1,40 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllEmployeesThunk } from "../../store/thunks";
-import { AllEmployeesView } from "../views";
+import { Component } from 'react';
+import { connect } from 'react-redux';
 
-function AllEmployeesContainer() {
-  const allEmployees = useSelector((state) => state.allEmployees);
-  const dispatch = useDispatch();
+import {
+    fetchAllEmployeesThunk,
+    deleteEmployeeThunk
+} from '../../store/thunks';
 
-  useEffect(() => {
-    dispatch(fetchAllEmployeesThunk());
-  }, [dispatch]);
+import AllEmployeesView from '../views/AllEmployeesView';
 
-  return <AllEmployeesView allEmployees={allEmployees} />;
+class AllEmployeesContainer extends Component {
+    componentDidMount() {
+        this.props.fetchAllEmployees();
+    }
+    render() {
+        return (
+            <div>
+                <AllEmployeesView
+                    employees={this.props.allEmployees}
+                    deleteEmployee={this.props.deleteEmployee}
+                />
+            </div>
+        )
+    }
 }
 
-export default AllEmployeesContainer;
+const mapState = (state) => {
+    return {
+        allEmployees: state.allEmployees,
+    };
+};
+
+const mapDispatch = (dispatch) => {
+    return {
+        fetchAllEmployees: () => dispatch(fetchAllEmployeesThunk()),
+        deleteEmployee: (employeeId) => dispatch(deleteEmployeeThunk(employeeId)),
+    };
+};
+
+export default connect(mapState, mapDispatch)(AllEmployeesContainer);

@@ -10,9 +10,11 @@ class NewTaskContainer extends Component {
     constructor(props){
         super(props);
         this.state = {
+          id: "",
           description: "", 
           priority_level: "",
-          completion_status: "", 
+          assigned_to: "",
+          completion_status: false, 
           employeeId: null, 
           redirect: false, 
           redirectId: null,
@@ -32,11 +34,19 @@ class NewTaskContainer extends Component {
           this.setState({error:"Description field is required"});
           return;
         }
+        if(this.state.priority_level===""){
+          this.setState({error:"Priority level field is required"});
+          return;
+        }
+        if(this.state.completion_status===""){
+          this.setState({error:"completion status field is required"});
+          return;
+        }
         let task = {
             description: this.state.description,
             priority_level: this.state.priority_level,
             completion_status: this.state.completion_status,
-            employeeId: this.state.employeeId
+            assigned_to: this.state.assigned_to
         };
         
         let newTask = await this.props.addTask(task);

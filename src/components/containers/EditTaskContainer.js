@@ -8,9 +8,11 @@ class EditTaskContainer extends Component {
     constructor(props){
         super(props);
         this.state = {
+            id: "",
             description: "", 
             priority_level: "",
             completion_status: "", 
+            assigned_to: "",
             employeeId: null, 
             redirect: false, 
             redirectId: null,
@@ -60,7 +62,7 @@ class EditTaskContainer extends Component {
 
         this.setState({
           redirect: true, 
-          redirectId: this.props.task.id
+          redirectId: this.props.task.employeeId
         });
 
     }

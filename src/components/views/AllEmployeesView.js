@@ -1,31 +1,38 @@
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const AllEmployeesView = (props) => {
-  if (!props.allEmployees.length) {
-    return <div>There are no employee.</div>;
-  }
+    let {employees, deleteEmployee} = props;
 
-  return (
-    <div>
-      {props.allEmployees.map((employee) => {
-        let name = employee.firstname + " " + employee.lastname;
+    if (!employees.length){
         return (
-          <div key={employee.id}>
-          <Link to={`/employee/${employee.id}`}>
-            <h1>{name}</h1>
-          </Link>
-          <p>{employee.department}</p>
-        </div>
+            <div>
+                <p>There are no Employees</p>
+                <Link to={`/newemployee`}>
+                    <button>Add New Employee</button>
+                </Link>
+            </div>
         );
+    }
 
-      })}
-    </div>
-  );
-};
-
-AllEmployeesView.propTypes = {
-  allEmployees: PropTypes.array.isRequired,
+    return (
+        <div>
+            {employees.map((employee) => {
+                let first_name  = employee.employee_first_name;
+                return (
+                    <div key={employee.id}>
+                        <Link to={`/employee/${employee.id}`}>
+                            <h1>{first_name}</h1>
+                        </Link>
+                        <button onClick={() => deleteEmployee(employee.id)}>Delete</button>
+                    </div>
+                );
+            }
+            )}
+            <Link to={`/newemployee`}>
+                <button>Add New Employee</button>
+            </Link>
+        </div>
+    );
 };
 
 export default AllEmployeesView;

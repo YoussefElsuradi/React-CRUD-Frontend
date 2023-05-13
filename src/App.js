@@ -1,5 +1,6 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
+import ErrorBoundary from './ErrorBoundary';
 import {
   HomePageContainer,
   AllEmployeesContainer,
@@ -7,24 +8,25 @@ import {
   AllTasksContainer,
   TaskContainer,
   NewTaskContainer,
-  EditTaskContainer
+  EditTaskContainer,
+  NewEmployeeContainer
 } from './components/containers';
 
 function App() {
   return (
-    <div classname="App">
-      {/* <header className="App-header">
-        <h1>Employee Management app </h1>
-      </header> */}
+    <div className="App">
+      <ErrorBoundary>
       <Routes>
-        <Route exact path="/" element={<HomePageContainer />} />
-        <Route exact path="/employees" element={<AllEmployeesContainer />} />
-        <Route exact path="/employee/:id" element={<EmployeeContainer />} />
-        <Route exact path="/tasks" element={<AllTasksContainer />} />
-        <Route exact path="/newtask" element={<NewTaskContainer />} />
-        <Route exact path="/task/:id" element={<TaskContainer />} />
-        <Route exact path="/edittask/:id" element={<EditTaskContainer />} />
+        <Route path="/" Component={HomePageContainer} />
+        <Route path="/employees" Component={AllEmployeesContainer} />
+        <Route path="/employee/:id" Component={EmployeeContainer} />
+        <Route path="/tasks" Component={AllTasksContainer} />
+        <Route path="/newtask" Component={NewTaskContainer} />
+        <Route path="/task/:id" Component={TaskContainer} />
+        <Route path="/edittask/:id" Component={EditTaskContainer} />
+        <Route path="/newemployee" Component={NewEmployeeContainer} />
       </Routes>
+      </ErrorBoundary>
     </div>
   );
 }

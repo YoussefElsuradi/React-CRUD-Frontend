@@ -1,75 +1,83 @@
-// import { Component } from 'react';
-// import { connect } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
+import { Component } from 'react';
+import { connect } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
-// import NewEmployeeView from '../views/NewEmployeeView';
-// import { addEmployeeThunk } from '../../store/thunks';
+import NewEmployeeView from '../views/NewEmployeeView';
+import { addEmployeeThunk } from '../../store/thunks';
 
 
-// class NewEmployeeContainer extends Component {
-//     constructor(props){
-//         super(props);
-//         this.state = {
-//           first_name: "", 
-//           last_name: "",
-//           department: "", 
-//           employeeId: null, 
-//           redirect: false, 
-//           redirectId: null,
-//           error: ""
-//         };
-//     }
+class NewEmployeeContainer extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+          id: "",
+          employee_first_name: "", 
+          employee_last_name: "",
+          department_name: "", 
+          // employeeId: null,
+          // redirect: false, 
+          // redirectId: null,
+          error: ""
+        };
+    }
 
-//     handleChange = event => {
-//       this.setState({
-//         [event.target.name]: event.target.value
-//       });
-//     }
+    handleChange = event => {
+      this.setState({
+        [event.target.name]: event.target.value
+      });
+    }
 
-//     handleSubmit = async event => {
-//         event.preventDefault();
-//         if(this.state.name===""){
-//           this.setState({error:"Name field is required"});
-//           return;
-//         }
-//         let task = {
-//             description: this.state.description,
-//             priority_level: this.state.priority_level,
-//             completion_status: this.state.completion_status,
-//             employeeId: this.state.employeeId
-//         };
+    handleSubmit = async event => {
+        event.preventDefault();
+        if(this.state.first_name===""){
+          this.setState({error:"First name field is required"});
+          return;
+        }
+        if(this.state.last_name===""){
+            this.setState({error:"Last name field is required"});
+            return;
+        }
+        if(this.state.department===""){
+            this.setState({error:"department field is required"});
+            return;
+        }
+        // let employee = {
+        //     first_name: this.state.employee_first_name,
+        //     last_name: this.state.employee_last_name,
+        //     department: this.state.department_name,
+        // };
         
-//         let newTask = await this.props.addTask(task);
+        //let newEmployee = await this.props.addEmployee(employee);
 
-//         this.setState({
-//           redirect: true, 
-//           redirectId: newTask.id,
-//           error: ""
-//         });
-//     }
+        // this.setState({
+        //   redirect: true, 
+        //   redirectId: newEmployee.id,
+        //   error: ""
+        // });
+    }
 
-//     componentWillUnmount() {
-//         this.setState({redirect: false, redirectId: null});
-//     }
+    // componentWillUnmount() {
+    //     this.setState({redirect: false, redirectId: null});
+    // }
 
-//     render() {
-//         if(this.state.redirect) {
-//           return (<Redirect to={`/task/${this.state.redirectId}`}/>)
-//         }
-//         return (
-//           <NewTaskView 
-//             handleChange={this.handleChange} 
-//             handleSubmit={this.handleSubmit}
-//             error={this.state.error}      
-//           />
-//         );
-//     }
-// }
+    render() {
+        if(this.state.redirect) {
+          return (<Navigate to={`/employee/${this.state.id}`}/>)
+        }
+        return (
+          <NewEmployeeView 
+            handleChange={this.handleChange} 
+            handleSubmit={this.handleSubmit}
+            error={this.state.error}      
+          />
+        );
+    }
+}
 
-// const mapDispatch = (dispatch) => {
-//     return({
-//         addTask: (task) => dispatch(addTaskThunk(task)),
-//     })
-// }
+const mapDispatch = (dispatch) => {
+    return({
+        addEmployee: (employee) => dispatch(addEmployeeThunk(employee)),
+    })
+}
 
-// export default connect(null, mapDispatch)(NewTaskContainer);
+export default connect(null, mapDispatch)(NewEmployeeContainer);

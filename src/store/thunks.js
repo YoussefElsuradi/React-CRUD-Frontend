@@ -1,7 +1,7 @@
 import * as ac from './actions/actionCreators';
-const axios = require('axios');
+import axios from 'axios';
 
-let path = "http://localhost:3000/";
+let path = "https://node-crud88.herokuapp.com";
 
 // All Employees
 export const fetchAllEmployeesThunk = () => async (dispatch) => {

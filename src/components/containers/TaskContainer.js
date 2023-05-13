@@ -4,9 +4,9 @@ import { fetchTaskThunk } from "../../store/thunks";
 import { TaskView } from "../views";
 
 class TaskContainer extends Component {
-  componentDidMount() {
-    this.props.fetchTask(this.props.match.params.id);
-  }
+  // componentDidMount() {
+  //   this.props.fetchTask(this.props.match.params.id);
+  // }
 
   render() {
     return (
