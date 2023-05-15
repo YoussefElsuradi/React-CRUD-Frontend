@@ -8,31 +8,22 @@ function App() {
     setMenuOpen(!menuOpen);
   }
   return (
-       <div className="App">
-      <header className="App-header">
-        <button className="menu-button" onClick={handleMenuClick}>
-          &#x2630;
-        </button>
-        {menuOpen && (
-          <div className="menu-content">
-            <div className="text">
-              <div className="content">
-                <p>
-                  <a className="link1" href="https://github.com/">Example</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-        
-        <h1>Employee Management app </h1>
-        <p>Homepage</p>
-
-
-        <a>
-        </a>
-      </header>
+    <div>
+      <nav className="navbar">
+        <div className="navbar-logo">
+          <img src="logo.png" alt="logo" />
+        </div>
+        <div className="navbar-links">
+          <a href="#">All Employees</a>
+          <a href="#">All Tasks</a>
+        </div>
+      </nav>
+      <div className="content">
+        <h1>Welcome to Employee Management App</h1>
+        <p>This is the homepage.</p>
+      </div>
     </div>
+
   );
 }
 
