@@ -33,7 +33,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
     return {
         fetchAllTasks: () => dispatch(fetchAllTasksThunk()),
-        deleteTask: (taskID) => dispatch(deleteTaskThunk(taskID)),
+        deleteTask: (taskId) => dispatch(deleteTaskThunk(taskId)),
     };
 };
 

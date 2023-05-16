@@ -20,7 +20,7 @@ const AllEmployeesView = (props) => {
                 let first_name  = employee.employee_first_name;
                 return (
                     <div key={employee.id}>
-                        <Link to={`/employee/${employee.id}`}>
+                        <Link to={`/employees/${employee.id}`}>
                             <h1>{first_name}</h1>
                         </Link>
                         <button onClick={() => deleteEmployee(employee.id)}>Delete</button>

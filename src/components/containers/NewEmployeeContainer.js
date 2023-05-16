@@ -14,9 +14,8 @@ class NewEmployeeContainer extends Component {
           employee_first_name: "", 
           employee_last_name: "",
           department_name: "", 
-          // employeeId: null,
-          // redirect: false, 
-          // redirectId: null,
+          redirect: false, 
+          redirectId: null,
           error: ""
         };
     }
@@ -41,28 +40,29 @@ class NewEmployeeContainer extends Component {
             this.setState({error:"department field is required"});
             return;
         }
-        // let employee = {
-        //     first_name: this.state.employee_first_name,
-        //     last_name: this.state.employee_last_name,
-        //     department: this.state.department_name,
-        // };
+        let employee = {
+            id: this.state.id,
+            first_name: this.state.employee_first_name,
+            last_name: this.state.employee_last_name,
+            department: this.state.department_name,
+        };
         
-        //let newEmployee = await this.props.addEmployee(employee);
+        let newEmployee = await this.props.addEmployee(employee);
 
-        // this.setState({
-        //   redirect: true, 
-        //   redirectId: newEmployee.id,
-        //   error: ""
-        // });
+        this.setState({
+          redirect: true, 
+          redirectId: newEmployee.id,
+          error: ""
+        });
     }
 
-    // componentWillUnmount() {
-    //     this.setState({redirect: false, redirectId: null});
-    // }
+    componentWillUnmount() {
+        this.setState({redirect: false, redirectId: null});
+    }
 
     render() {
         if(this.state.redirect) {
-          return (<Navigate to={`/employee/${this.state.id}`}/>)
+          return (<Navigate to={`/employees/${this.state.redirectId}`}/>)
         }
         return (
           <NewEmployeeView 

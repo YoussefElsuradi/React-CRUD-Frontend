@@ -19,10 +19,10 @@ function App() {
       <Routes>
         <Route path="/" Component={HomePageContainer} />
         <Route path="/employees" Component={AllEmployeesContainer} />
-        <Route path="/employee/:id" Component={EmployeeContainer} />
+        <Route path="/employees/:id" Component={EmployeeContainer} />
         <Route path="/tasks" Component={AllTasksContainer} />
         <Route path="/newtask" Component={NewTaskContainer} />
-        <Route path="/task/:id" Component={TaskContainer} />
+        <Route path="/tasks/:id" Component={TaskContainer} />
         <Route path="/edittask/:id" Component={EditTaskContainer} />
         <Route path="/newemployee" Component={NewEmployeeContainer} />
       </Routes>

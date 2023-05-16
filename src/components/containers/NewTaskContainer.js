@@ -13,9 +13,8 @@ class NewTaskContainer extends Component {
           id: "",
           description: "", 
           priority_level: "",
-          assigned_to: "",
+          assigned_to: null,
           completion_status: false, 
-          employeeId: null, 
           redirect: false, 
           redirectId: null,
           error: ""
@@ -32,14 +31,6 @@ class NewTaskContainer extends Component {
         event.preventDefault();
         if(this.state.description===""){
           this.setState({error:"Description field is required"});
-          return;
-        }
-        if(this.state.priority_level===""){
-          this.setState({error:"Priority level field is required"});
-          return;
-        }
-        if(this.state.completion_status===""){
-          this.setState({error:"completion status field is required"});
           return;
         }
         let task = {
@@ -64,7 +55,7 @@ class NewTaskContainer extends Component {
 
     render() {
         if(this.state.redirect) {
-          return (<Navigate to={`/task/${this.state.redirectId}`}/>)
+          return (<Navigate to={`/tasks/${this.state.redirectId}`}/>)
         }
         return (
           <NewTaskView 

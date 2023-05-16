@@ -16,7 +16,7 @@ const EmployeeView = (props) => {
           {assignedTasks.map((task) => {
             return (
               <div key={task.id}>
-                <Link to={`/task/${task.id}`}>
+                <Link to={`/tasks/${task.id}`}>
                   <h4>{task.description}</h4>
                 </Link>
                 <button onClick={() => editTask({ id: task.id, employeeId: null })}>x</button>

@@ -1,20 +1,21 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchTaskThunk } from "../../store/thunks";
-import { TaskView } from "../views";
+import TaskView from "../views/TaskView";
+import { useParams } from "react-router-dom";
 
-class TaskContainer extends Component {
-  // componentDidMount() {
-  //   this.props.fetchTask(this.props.match.params.id);
-  // }
+const TaskContainer = (props) => {
+  const { id } = useParams();
 
-  render() {
-    return (
-      <TaskView 
-        task={this.props.task}
-      />
-    );
-  }
+  useEffect(() => {
+    props.fetchTask(id);
+  }, [id, props.fetchTask]);
+
+  return (
+    <TaskView 
+      task={props.task}
+    />
+  );
 }
 
 const mapState = (state) => {

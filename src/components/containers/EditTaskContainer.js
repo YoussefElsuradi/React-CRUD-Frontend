@@ -12,8 +12,7 @@ class EditTaskContainer extends Component {
             description: "", 
             priority_level: "",
             completion_status: "", 
-            assigned_to: "",
-            employeeId: null, 
+            assigned_to: null,
             redirect: false, 
             redirectId: null,
             error: ""
@@ -21,12 +20,12 @@ class EditTaskContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchTask(this.props.match.params.id);
+        this.props.fetchTask(this.id);
         this.props.fetchEmployee();
         this.setState({
             description: this.props.task.description, 
             priority_level: this.props.task.priority_level,
-            employeeId: this.props.task.employeeId, 
+            assigned_to: this.props.task.assigned_to, 
         });
       }
 
@@ -38,9 +37,9 @@ class EditTaskContainer extends Component {
 
     handleSelectChange = event => {
       if (event.target.value === "employee") {
-        this.setState({employeeId:null});
+        this.setState({assigned_to:null});
       } else {
-        this.setState({employeeId: event.employee.value})
+        this.setState({assigned_to: event.employee.value})
       }
     }
 
@@ -55,14 +54,14 @@ class EditTaskContainer extends Component {
             id: this.props.task.id,
             description: this.state.description,
             priority_level: this.state.priority_level,
-            employeeId: this.state.employeeId
+            assigned_to: this.state.assigned_to
         };
         
         this.props.editTask(task);
 
         this.setState({
           redirect: true, 
-          redirectId: this.props.task.employeeId
+          redirectId: this.props.task.assigned_to
         });
 
     }
@@ -74,12 +73,12 @@ class EditTaskContainer extends Component {
 
     render() {
         let { task, allEmployees, editTask, fetchTask} = this.props;
-        let assignedEmployee = task.employeeId;
+        let assignedEmployee = task.assigned_to;
 
         let otherEmployees = allEmployees.filter(employee => employee.id!==assignedEmployee);
       
         if(this.state.redirect) {
-          return (<Navigate to={`/task/${this.state.redirectId}`}/>)
+          return (<Navigate to={`/tasks/${this.state.redirectId}`}/>)
         }
 
         return (
@@ -90,17 +89,17 @@ class EditTaskContainer extends Component {
             <br/>
 
             <label style={{color:'#11153e', fontWeight: 'bold'}}>Priority Level: </label>
-            <input type="text" name="priority_level" value={this.state.priority_level || ''} placeholder={task.priority_level} onChange={(e) => this.handleChange(e)}/>
+            <input type="number" name="priority_level" value={this.state.priority_level || ''} placeholder={task.priority_level} onChange={(e) => this.handleChange(e)}/>
             <br/>
 
             <select onChange={(e) => this.handleSelectChange(e)}>
               {task.employee!==null ?
-                <option value={task.employeeId}>{task.employee.firstname+" (current)"}</option>
+                <option value={task.assigned_to}>{task.employee.employee_first_name+" (current)"}</option>
               : <option value="employee">Employee</option>
               }
               {otherEmployees.map(employee => {
                 return (
-                  <option value={employee.id} key={employee.id}>{employee.firstname}</option>
+                  <option value={employee.id} key={employee.id}>{employee.employee_first_name}</option>
                 )
               })}
               {task.employee!==null && <option value="employee">Employee</option>}
@@ -113,10 +112,10 @@ class EditTaskContainer extends Component {
           </form>
           { this.state.error !=="" && <p>{this.state.error}</p> }
 
-          {task.employeeId !== null ?
+          {task.assigned_to !== null ?
             <div> Current employee:  
-            <Link to={`/employee/${task.employeeId}`}>{task.employee.firstname}</Link>
-            <button onClick={async () => {await editTask({id:task.id, employeeId: null});  fetchTask(task.id)}}>Unassign</button>
+            <Link to={`/employees/${task.assigned_to}`}>{task.employee.employee_first_name}</Link>
+            <button onClick={async () => {await editTask({id:task.id, assigned_to: null});  fetchTask(task.id)}}>Unassign</button>
             </div>
             : <div> No employee currently assigned </div>
           }
@@ -125,10 +124,10 @@ class EditTaskContainer extends Component {
           {otherEmployees.map(employee => {
             return (
             <div key={employee.id}>
-                <Link to={`/employee/${employee.id}`}>
-                  <h4>{employee.firstname}</h4>
+                <Link to={`/employees/${employee.id}`}>
+                  <h4>{employee.employee_first_name}</h4>
                 </Link>
-                <button onClick={async() => {await editTask({id:task.id, employeeId: employee.id}); fetchTask(task.id)}}>Assign this employee</button>
+                <button onClick={async() => {await editTask({id:task.id, assigned_to: employee.id}); fetchTask(task.id)}}>Assign this employee</button>
             </div>
             )})
           }

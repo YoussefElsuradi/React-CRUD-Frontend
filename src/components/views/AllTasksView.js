@@ -20,7 +20,7 @@ const AllTasksView = (props) => {
                 let description = task.description;
                 return (
                     <div key={task.id}>
-                        <Link to={`/task/${task.id}`}>
+                        <Link to={`/tasks/${task.id}`}>
                             <h1>{description}</h1>
                         </Link>
                         <button onClick={() => deleteTask(task.id)}>Delete</button>
@@ -28,6 +28,7 @@ const AllTasksView = (props) => {
                 );
             }
             )}
+            <br></br>
             <Link to={`/newtask`}>
                 <button>Add New Task</button>
             </Link>
