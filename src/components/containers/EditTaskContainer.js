@@ -127,7 +127,7 @@ const EditTaskContainer = ({
           Completion Status:{' '}
         </label>
         <input
-          type="bool"
+          type="checkbox"
           name="completion_status"
           value={state.completion_status || ''}
           placeholder={task.completion_status}
