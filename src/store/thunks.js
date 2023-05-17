@@ -17,14 +17,26 @@ export const fetchAllEmployeesThunk = () => async (dispatch) => {
 // Add Employee
 export const addEmployeeThunk = (employee) => async (dispatch) => {
     try {
-        let res = await axios.post(`${path}/employees`, employee);
-        dispatch(ac.addEmployee(res.data));
-        return res.data;
+      let res = await axios.post('https://node-crud88.herokuapp.com/employees', employee);
+      console.log('Response data:', res.data); // Testing
+      dispatch(ac.addEmployee(res.data));
+      return res.data;
+    } catch (err) {
+      console.error('Error:', err); // Log the error
     }
-    catch(err) {
-        console.error(err);
-    }
-};
+  };
+// export const addEmployeeThunk = (employee) => async (dispatch) => {
+//     try {
+//         let res = await axios.post(`${path}/employees`, employee);
+//         console.log('Response data:', res.data); //testing
+//         dispatch(ac.addEmployee(res.data));
+//         return res.data;
+//     }
+//     catch(err) {
+//         console.error('Error:', err); // Log the error
+       
+//     }
+// };
 
 // Delete Employee
 export const deleteEmployeeThunk = employeeId => async dispatch => {
