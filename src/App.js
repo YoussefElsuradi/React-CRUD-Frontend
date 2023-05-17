@@ -208,7 +208,7 @@ function App() {
 
     try {
       const response = await axios.put(
-        `http://localhost:4000/employees/${editEmployee.id}`,
+        `https://node-crud88.herokuapp.com/employees/${editEmployee.id}`,
         editEmployee
       );
 
@@ -232,7 +232,7 @@ function App() {
 
     try {
       const response = await axios.put(
-        `http://localhost:4000/tasks/${editTask.id}`,
+        `https://node-crud88.herokuapp.com/tasks/${editTask.id}`,
         editTask
       );
 
