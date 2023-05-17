@@ -20,8 +20,9 @@ function App() {
       </nav>
       <div className="content">
         <h1>Welcome to Employee Management App</h1>
-        <p>This is the homepage.</p>
+        <p>This is the homepage</p>
       </div>
+      <button className="button1">yo</button>
     </div>
 
   );
