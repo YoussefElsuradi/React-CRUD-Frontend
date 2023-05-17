@@ -1,161 +1,70 @@
-
-
-import { Component, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import axios from 'axios';
 
 import NewEmployeeView from '../views/NewEmployeeView';
 import { addEmployeeThunk } from '../../store/thunks';
 
-class NewEmployeeContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstName: '',
-      lastName: '',
-      department: '',
-      redirect: false,
-      error: '',
-    };
-  }
+const NewEmployeeContainer = ({ addEmployee }) => {
+  const [state, setState] = useState({
+    firstName: '',
+    lastName: '',
+    department: '',
+    redirect: false,
+    error: ''
+  });
 
-  handleChange = event => {
-    this.setState({
+  const handleChange = event => {
+    setState({
+      ...state,
       [event.target.name]: event.target.value
     });
-  }
+  };
 
-  handleSubmit = async event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    if (this.state.firstName === '' || this.state.department === '') {
-      this.setState({ error: 'All fields are required' });
+    if (state.firstName === '' || state.department === '') {
+      setState({ ...state, error: 'All fields are required' });
       return;
     }
 
     const newEmployee = {
-      employee_first_name: this.state.firstName,
-      employee_last_name: this.state.lastName,
-      department_name: this.state.department
+      employee_first_name: state.firstName,
+      employee_last_name: state.lastName,
+      department_name: state.department
     };
 
     try {
-      await this.props.addEmployee(newEmployee);
-      this.setState({ redirect: true, error: '' });
+      await addEmployee(newEmployee);
+      setState({ ...state, redirect: true, error: '' });
     } catch (error) {
       console.error(error);
     }
+  };
+
+  useEffect(() => {
+    return () => {
+      setState({ redirect: false });
+    };
+  }, []);
+
+  if (state.redirect) {
+    return <Navigate to="/employees" />;
   }
 
-  componentWillUnmount() {
-    this.setState({ redirect: false });
-  }
-
-  render() {
-    if (this.state.redirect) {
-      return (<Navigate to="/employees" />);
-    }
-    return (
-      <NewEmployeeView
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        error={this.state.error}
-      />
-    );
-  }
-}
+  return (
+    <NewEmployeeView
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+      error={state.error}
+    />
+  );
+};
 
 const mapDispatch = (dispatch) => {
   return {
-    addEmployee: (employee) => dispatch(addEmployeeThunk(employee)),
+    addEmployee: (employee) => dispatch(addEmployeeThunk(employee))
   };
 };
 
 export default connect(null, mapDispatch)(NewEmployeeContainer);
-
-
-
-
-// import { Component } from 'react';
-// import { connect } from 'react-redux';
-// import { Navigate } from 'react-router-dom';
-
-// import NewEmployeeView from '../views/NewEmployeeView';
-// import { addEmployeeThunk } from '../../store/thunks';
-
-
-// class NewEmployeeContainer extends Component {
-//     constructor(props){
-//         super(props);
-//         this.state = {
-//           //id: "",
-//           employee_first_name: "", 
-//           employee_last_name: "",
-//           department_name: "", 
-//           //redirect: false, 
-//           //redirectId: null,
-//           //error: ""
-//         };
-//     }
-
-//     handleChange = event => {
-//       this.setState({
-//         [event.target.name]: event.target.value
-//       });
-//     }
-
-//     handleSubmit = async event => {
-//         event.preventDefault();
-//         if(this.state.first_name===""){
-//           this.setState({error:"First name field is required"});
-//           return;
-//         }
-//         if(this.state.last_name===""){
-//             this.setState({error:"Last name field is required"});
-//             return;
-//         }
-//         if(this.state.department===""){
-//             this.setState({error:"department field is required"});
-//             return;
-//         }
-//         let employee = {
-//             // id: this.state.id,
-//             first_name: this.state.employee_first_name,
-//             last_name: this.state.employee_last_name,
-//             department: this.state.department_name,
-//         };
-        
-//         let newEmployee = await this.props.addEmployee(employee);
-
-//         this.setState({
-//           redirect: true, 
-//           redirectId: newEmployee.id,
-//           error: ""
-//         });
-//     }
-
-//     componentWillUnmount() {
-//         this.setState({redirect: false, redirectId: null});
-//     }
-
-//     render() {
-//         if(this.state.redirect) {
-//           return (<Navigate to={`/employees/${this.state.redirectId}`}/>)
-//         }
-//         return (
-//           <NewEmployeeView 
-//             handleChange={this.handleChange} 
-//             handleSubmit={this.handleSubmit}
-//             error={this.state.error}      
-//           />
-//         );
-//     }
-// }
-
-// const mapDispatch = (dispatch) => {
-//     return({
-//         addEmployee: (employee) => dispatch(addEmployeeThunk(employee)),
-//     })
-// }
-
-// export default connect(null, mapDispatch)(NewEmployeeContainer);
