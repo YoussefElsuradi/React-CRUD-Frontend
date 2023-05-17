@@ -1,35 +1,41 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { 
+import { useParams } from "react-router-dom";
+import {
   fetchEmployeeThunk,
   fetchAllTasksThunk,
-  editTaskThunk 
+  editTaskThunk
 } from "../../store/thunks";
 
 import { EmployeeView } from "../views";
 
-class EmployeeContainer extends Component {
-  componentDidMount() {
-    this.props.fetchEmployee();
-    this.props.fetchTask();
-  }
+const EmployeeContainer = ({
+  employee,
+  allTasks,
+  fetchEmployee,
+  editTask,
+  fetchTask
+}) => {
+  const { id } = useParams();
 
-  render() {
-    return (
-      <EmployeeView 
-        employee={this.props.employee}
-        editTask={this.props.editTask}
-        allTasks={this.props.allTasks}
-      />
-    );
-  }
-}
+  useEffect(() => {
+    fetchEmployee(id);
+    fetchTask();
+  }, [fetchEmployee, fetchTask, id]);
+
+  return (
+    <EmployeeView
+      employee={employee}
+      editTask={editTask}
+      allTasks={allTasks}
+    />
+  );
+};
 
 const mapState = (state) => {
   return {
     employee: state.employee,
-    allTasks: state.allTasks,
-
+    allTasks: state.allTasks
   };
 };
 
@@ -37,8 +43,7 @@ const mapDispatch = (dispatch) => {
   return {
     fetchEmployee: (id) => dispatch(fetchEmployeeThunk(id)),
     editTask: (task) => dispatch(editTaskThunk(task)),
-    fetchTask: () => dispatch(fetchAllTasksThunk()),
-
+    fetchTask: () => dispatch(fetchAllTasksThunk())
   };
 };
 

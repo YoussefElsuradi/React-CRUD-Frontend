@@ -1,76 +1,75 @@
-import { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import NewTaskView from '../views/NewTaskView';
 import { addTaskThunk } from '../../store/thunks';
 
+const NewTaskContainer = ({ addTask }) => {
+  const [state, setState] = useState({
+    id: '',
+    description: '',
+    priority_level: '',
+    assigned_to: null,
+    completion_status: false,
+    redirect: false,
+    redirectId: null,
+    error: ''
+  });
 
-class NewTaskContainer extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-          id: "",
-          description: "", 
-          priority_level: "",
-          assigned_to: null,
-          completion_status: false, 
-          redirect: false, 
-          redirectId: null,
-          error: ""
-        };
+  const handleChange = event => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    if (state.description === '') {
+      setState({ ...state, error: 'Description field is required' });
+      return;
     }
+    let task = {
+      description: state.description,
+      priority_level: state.priority_level,
+      completion_status: state.completion_status,
+      assigned_to: state.assigned_to
+    };
 
-    handleChange = event => {
-      this.setState({
-        [event.target.name]: event.target.value
-      });
-    }
+    let newTask = await addTask(task);
 
-    handleSubmit = async event => {
-        event.preventDefault();
-        if(this.state.description===""){
-          this.setState({error:"Description field is required"});
-          return;
-        }
-        let task = {
-            description: this.state.description,
-            priority_level: this.state.priority_level,
-            completion_status: this.state.completion_status,
-            assigned_to: this.state.assigned_to
-        };
-        
-        let newTask = await this.props.addTask(task);
+    setState({
+      ...state,
+      redirect: true,
+      redirectId: newTask.id,
+      error: ''
+    });
+  };
 
-        this.setState({
-          redirect: true, 
-          redirectId: newTask.id,
-          error: ""
-        });
-    }
+  useEffect(() => {
+    return () => {
+      setState({ redirect: false, redirectId: null });
+    };
+  }, []);
 
-    componentWillUnmount() {
-        this.setState({redirect: false, redirectId: null});
-    }
+  if (state.redirect) {
+    return <Navigate to={`/tasks/${state.redirectId}`} />;
+  }
 
-    render() {
-        if(this.state.redirect) {
-          return (<Navigate to={`/tasks/${this.state.redirectId}`}/>)
-        }
-        return (
-          <NewTaskView 
-            handleChange={this.handleChange} 
-            handleSubmit={this.handleSubmit}
-            error={this.state.error}      
-          />
-        );
-    }
-}
+  return (
+    <NewTaskView
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+      error={state.error}
+    />
+  );
+};
 
 const mapDispatch = (dispatch) => {
-    return({
-        addTask: (task) => dispatch(addTaskThunk(task)),
-    })
-}
+  return {
+    addTask: (task) => dispatch(addTaskThunk(task))
+  };
+};
 
 export default connect(null, mapDispatch)(NewTaskContainer);

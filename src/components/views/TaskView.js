@@ -7,8 +7,8 @@ const TaskView = (props) => {
   return (
     <div>
       <h1>{task.description}</h1>
-      {task.employeeId ? (
-        <h3>{task.employee.employee_first_name} {task.employee.employee_last_name}</h3>
+      {task.assigned_to ? (
+        <h3>{task.assigned_to.employee_first_name} {task.assigned_to.employee_last_name}</h3>
       ) : (
         <h3>No employee assigned</h3>
       )}

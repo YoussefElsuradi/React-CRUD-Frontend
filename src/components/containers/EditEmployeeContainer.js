@@ -128,7 +128,7 @@ const EditTaskContainer = ({
         <select onChange={handleSelectChange}>
           {task.employee !== null ? (
             <option value={task.assigned_to}>
-              {task.employee_first_name + ' (current)'}
+              {task.employee.employee_first_name + ' (current)'}
             </option>
           ) : (
             <option value="employee">Employee</option>

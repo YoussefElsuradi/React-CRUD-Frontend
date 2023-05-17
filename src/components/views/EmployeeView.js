@@ -2,9 +2,13 @@ import { Link } from "react-router-dom";
 
 const EmployeeView = (props) => {
   const { employee, editTask, allTasks } = props;
-  let assignedTasks = allTasks.filter((task) => task.employeeId === employee.id);
-  let availableTasks = allTasks.filter((task) => task.employeeId !== employee.id);
+  let assignedTasks = allTasks.filter((task) => task.assigned_to === employee.id);
+  let availableTasks = allTasks.filter((task) => task.assigned_to !== employee.id);
 
+  const handleTaskAssignment = async (taskId, assignedTo) => {
+    await editTask({ id: taskId, assigned_to: assignedTo });
+    window.location.reload();
+  };
 
   return (
     <div>
@@ -19,7 +23,7 @@ const EmployeeView = (props) => {
                 <Link to={`/tasks/${task.id}`}>
                   <h4>{task.description}</h4>
                 </Link>
-                <button onClick={() => editTask({ id: task.id, employeeId: null })}>x</button>
+                <button onClick={() => handleTaskAssignment(task.id, null)}>x</button>
               </div>
             );
           })}
@@ -29,10 +33,10 @@ const EmployeeView = (props) => {
           {availableTasks.map((task) => {
             return (
               <div key={task.id}>
-                <Link to={`/task/${task.id}`}>
+                <Link to={`/tasks/${task.id}`}>
                   <h4>{task.description}</h4>
                 </Link>
-                <button onClick={() => editTask({ id: task.id, employeeId: employee.id })}>+</button>
+                <button onClick={() => handleTaskAssignment(task.id, employee.id)}>+</button>
               </div>
             );
           })}
