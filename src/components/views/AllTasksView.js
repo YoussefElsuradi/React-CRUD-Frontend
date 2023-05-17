@@ -32,6 +32,9 @@ const AllTasksView = (props) => {
             <Link to={`/newtask`}>
                 <button>Add New Task</button>
             </Link>
+            <Link to="/">
+        <button>Go to Home Page</button>
+      </Link>
         </div>
     );
 };
