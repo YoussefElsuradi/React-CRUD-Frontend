@@ -7,7 +7,6 @@ import { addEmployeeThunk } from '../../store/thunks';
 
 const NewEmployeeContainer = ({ addEmployee }) => {
   const [state, setState] = useState({
-    id: '',
     employee_first_name: '',
     employee_last_name: '',
     department_name: '',

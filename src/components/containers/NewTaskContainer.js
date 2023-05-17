@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import NewTaskView from '../views/NewTaskView';
-import { addTaskThunk } from '../../store/thunks';
+import { addTaskThunk, fetchEmployeeThunk } from '../../store/thunks';
 
-const NewTaskContainer = ({ addTask }) => {
+const NewTaskContainer = ({ addTask, fetchEmployee }) => {
   const [state, setState] = useState({
-    id: '',
     description: '',
     priority_level: '',
     assigned_to: null,
@@ -30,6 +29,7 @@ const NewTaskContainer = ({ addTask }) => {
       setState({ ...state, error: 'Description field is required' });
       return;
     }
+
     let task = {
       description: state.description,
       priority_level: state.priority_level,
@@ -68,7 +68,8 @@ const NewTaskContainer = ({ addTask }) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    addTask: (task) => dispatch(addTaskThunk(task))
+    addTask: (task) => dispatch(addTaskThunk(task)),
+    fetchEmployee: (id) => dispatch(fetchEmployeeThunk(id)) // Add the fetchEmployee thunk
   };
 };
 
