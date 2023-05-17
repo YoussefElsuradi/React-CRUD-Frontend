@@ -212,6 +212,9 @@ const EditTaskContainer = ({
         </div>
       );
     })}
+    <Link to="/">
+        <button>Go to Home Page</button>
+      </Link>
   </div>
 </div>);
 };
