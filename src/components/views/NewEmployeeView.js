@@ -21,7 +21,7 @@ const NewEmployeeView = (props) => {
             <br/>
   
             <label style={{color:'#11153e', fontWeight: 'bold'}}>Department: </label>
-            <input type="text" name="department" onChange={(e) => handleChange(e)} />
+            <input type="text" name="department_name" onChange={(e) => handleChange(e)} />
             <br/>
             <br/>
   

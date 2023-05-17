@@ -9,6 +9,7 @@ import {
   TaskContainer,
   NewTaskContainer,
   EditTaskContainer,
+  EditEmployeeContainer,
   NewEmployeeContainer
 } from './components/containers';
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/newtask" Component={NewTaskContainer} />
         <Route path="/tasks/:id" Component={TaskContainer} />
         <Route path="/edittask/:id" Component={EditTaskContainer} />
+        <Route path="/editemployee/:id" Component={EditEmployeeContainer} />
         <Route path="/newemployee" Component={NewEmployeeContainer} />
       </Routes>
       </ErrorBoundary>

@@ -15,7 +15,7 @@ const EditTaskContainer = ({
     id: '',
     description: '',
     priority_level: '',
-    completion_status: false,
+    completion_status: '',
     assigned_to: null,
     redirect: false,
     redirectId: null,
@@ -40,10 +40,10 @@ const EditTaskContainer = ({
   };
 
   const handleSelectChange = event => {
-    if (event.target.value === "employee") {
+    if (event.target.value === 'employee') {
       setState({ ...state, assigned_to: null });
     } else {
-      setState({ ...state, assigned_to: event.target.value });
+      setState({ ...state, assigned_to: event.target.employee.value });
     }
   };
 
@@ -55,10 +55,9 @@ const EditTaskContainer = ({
     }
 
     let updatedTask = {
-      id: state.id,
+      id: task.id,
       description: state.description,
       priority_level: state.priority_level,
-      completion_status: state.completion_status,
       assigned_to: state.assigned_to
     };
 
@@ -67,7 +66,7 @@ const EditTaskContainer = ({
     setState({
       ...state,
       redirect: true,
-      redirectId: task.id
+      redirectId: task.assigned_to
     });
   };
 
@@ -81,10 +80,6 @@ const EditTaskContainer = ({
 
   let otherEmployees = allEmployees.filter(
     employee => employee.id !== assignedEmployee
-  );
-
-  let thisEmployee = allEmployees.filter(
-    employee => employee.id === assignedEmployee
   );
 
   if (state.redirect) {
@@ -131,15 +126,13 @@ const EditTaskContainer = ({
         <br />
 
         <select onChange={handleSelectChange}>
-        {task.employee !== null ? (
-          thisEmployee.map(employee => (
+          {task.employee !== null ? (
             <option value={task.assigned_to}>
-              {employee.employee_first_name + ' (current)'}
+              {task.employee.employee_first_name + ' (current)'}
             </option>
-          ))
-        ) : (
-          <option value="employee">Employee</option>
-        )}
+          ) : (
+            <option value="employee">Employee</option>
+            )}
             {otherEmployees.map(employee => {
             return (
             <option value={employee.id} key={employee.id}>
@@ -148,37 +141,30 @@ const EditTaskContainer = ({
             );
             })}
             {task.employee !== null && <option value="employee">Employee</option>}
-            </select>  
-
-            <button type="submit">Submit</button>
+            </select>  <button type="submit">Submit</button>
   </form>
 
   {state.error !== '' && <p>{state.error}</p>}
 
   {task.assigned_to !== null ? (
-  <div>
-    <span style={{ display: 'inline-block', marginRight: '10px' }}>
+    <div>
+      {' '}
       Current employee:
-    </span>
-    {thisEmployee.map(employee => (
-      <div key={employee.id} style={{ display: 'inline-block' }}>
-        <Link to={`/employees/${task.assigned_to}`}>
-          {employee.employee_first_name}
-        </Link>
-        <button
-          onClick={async () => {
-            await editTask({ id: task.id, assigned_to: null });
-            fetchTask(task.id);
-          }}
-        >
-          Unassign
-        </button>
-      </div>
-    ))}
-  </div>
-) : (
-  <div>No employee currently assigned</div>
-)}
+      <Link to={`/employees/${task.assigned_to}`}>
+        {task.employee.employee_first_name}
+      </Link>
+      <button
+        onClick={async () => {
+          await editTask({ id: task.id, assigned_to: null });
+          fetchTask(task.id);
+        }}
+      >
+        Unassign
+      </button>
+    </div>
+  ) : (
+    <div> No employee currently assigned </div>
+  )}
 
   <div>
     {' '}

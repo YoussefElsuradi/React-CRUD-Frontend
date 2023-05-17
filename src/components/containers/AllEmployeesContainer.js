@@ -1,40 +1,41 @@
-import { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-
 import {
-    fetchAllEmployeesThunk,
-    deleteEmployeeThunk
+  fetchAllEmployeesThunk,
+  deleteEmployeeThunk
 } from '../../store/thunks';
-
 import AllEmployeesView from '../views/AllEmployeesView';
 
-class AllEmployeesContainer extends Component {
-    componentDidMount() {
-        this.props.fetchAllEmployees();
-    }
-    render() {
-        return (
-            <div>
-                <AllEmployeesView
-                    employees={this.props.allEmployees}
-                    deleteEmployee={this.props.deleteEmployee}
-                />
-            </div>
-        )
-    }
-}
+const AllEmployeesContainer = ({
+  allEmployees,
+  fetchAllEmployees,
+  deleteEmployee
+}) => {
+  useEffect(() => {
+    fetchAllEmployees();
+  }, []);
+
+  return (
+    <div>
+      <AllEmployeesView
+        employees={allEmployees}
+        deleteEmployee={deleteEmployee}
+      />
+    </div>
+  );
+};
 
 const mapState = (state) => {
-    return {
-        allEmployees: state.allEmployees,
-    };
+  return {
+    allEmployees: state.allEmployees,
+  };
 };
 
 const mapDispatch = (dispatch) => {
-    return {
-        fetchAllEmployees: () => dispatch(fetchAllEmployeesThunk()),
-        deleteEmployee: (employeeId) => dispatch(deleteEmployeeThunk(employeeId)),
-    };
+  return {
+    fetchAllEmployees: () => dispatch(fetchAllEmployeesThunk()),
+    deleteEmployee: (employeeId) => dispatch(deleteEmployeeThunk(employeeId)),
+  };
 };
 
 export default connect(mapState, mapDispatch)(AllEmployeesContainer);
