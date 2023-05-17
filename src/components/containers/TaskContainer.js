@@ -4,17 +4,17 @@ import { fetchTaskThunk, fetchEmployeeThunk } from "../../store/thunks";
 import TaskView from "../views/TaskView";
 import { useParams } from "react-router-dom";
 
-const TaskContainer = (props) => {
+const TaskContainer = ({ task, employee, fetchTask, fetchEmployee }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    props.fetchTask(id);
-    if (props.task.assigned_to) {
-      props.fetchEmployee(props.task.assigned_to);
+    fetchTask(id);
+    if (task.assigned_to) {
+      fetchEmployee(task.assigned_to);
     }
-  }, [id, props.fetchTask, props.fetchEmployee, props.task.assigned_to]);
+  }, [id, fetchTask, fetchEmployee, task.assigned_to]);
 
-  return <TaskView task={props.task} employee={props.employee} />;
+  return <TaskView task={task} employee={employee} />;
 };
 
 const mapState = (state) => {

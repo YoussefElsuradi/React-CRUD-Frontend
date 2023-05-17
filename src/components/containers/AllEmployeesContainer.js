@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  fetchAllEmployeesThunk,
-  deleteEmployeeThunk
-} from '../../store/thunks';
+import { fetchAllEmployeesThunk, deleteEmployeeThunk } from '../../store/thunks';
 import AllEmployeesView from '../views/AllEmployeesView';
 
 const AllEmployeesContainer = ({
@@ -13,14 +10,11 @@ const AllEmployeesContainer = ({
 }) => {
   useEffect(() => {
     fetchAllEmployees();
-  }, []);
+  }, [fetchAllEmployees]);
 
   return (
     <div>
-      <AllEmployeesView
-        employees={allEmployees}
-        deleteEmployee={deleteEmployee}
-      />
+      <AllEmployeesView employees={allEmployees} deleteEmployee={deleteEmployee} />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Navigate, Link } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 import { fetchTaskThunk, editTaskThunk, fetchAllEmployeesThunk } from '../../store/thunks';
 
@@ -11,6 +12,8 @@ const EditTaskContainer = ({
   fetchTask,
   fetchEmployee
 }) => {
+  const { id } = useParams();
+
   const [state, setState] = useState({
     id: '',
     description: '',
@@ -23,15 +26,18 @@ const EditTaskContainer = ({
   });
 
   useEffect(() => {
-    fetchTask();
-    fetchEmployee();
-    setState({
+    fetchTask(id);
+    fetchEmployee(task.assigned_to);
+    setState((prevState) => ({
+      ...prevState,
       description: task.description,
       priority_level: task.priority_level,
-      assigned_to: task.assigned_to
-    });
+      assigned_to: task.assigned_to,
+      completion_status: task.completion_status,
+      id: task.id,
+    }));
   }, []);
-
+  
   const handleChange = event => {
     setState({
       ...state,
@@ -47,27 +53,41 @@ const EditTaskContainer = ({
     }
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (state.description === '') {
       setState({ ...state, error: 'Error: description cannot be empty' });
       return;
     }
 
-    let updatedTask = {
-      id: state.id,
-      description: state.description,
-      priority_level: state.priority_level,
-      completion_status: state.completion_status,
-      assigned_to: state.assigned_to
-    };
+    // let updatedTask = {
+    //   id: state.id,
+    //   description: state.description,
+    //   priority_level: state.priority_level,
+    //   completion_status: state.completion_status,
+    //   assigned_to: state.assigned_to
+    // };
 
-    editTask(updatedTask);
+    // editTask(updatedTask);
+
+    await editTask({ taskId: state.id, description: state.description });
+    await editTask({ taskId: state.id, assigned_to: state.assigned_to });
+    await editTask({ taskId: state.id, completion_status: state.completion_status });
+    await editTask({ taskId: state.id, priority_level: state.priority_level });
+
+    const updatedTask = {
+      ...task,
+      description: state.description,
+      assigned_to: state.assigned_to,
+      completion_status: state.completion_status,
+      priority_level: state.priority_level
+    };
 
     setState({
       ...state,
       redirect: true,
-      redirectId: task.id
+      redirectId: task.id,
+      task: updatedTask
     });
   };
 

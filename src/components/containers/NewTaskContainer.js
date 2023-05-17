@@ -69,7 +69,7 @@ const NewTaskContainer = ({ addTask, fetchEmployee }) => {
 const mapDispatch = (dispatch) => {
   return {
     addTask: (task) => dispatch(addTaskThunk(task)),
-    fetchEmployee: (id) => dispatch(fetchEmployeeThunk(id)) // Add the fetchEmployee thunk
+    fetchEmployee: (id) => dispatch(fetchEmployeeThunk(id))
   };
 };
 

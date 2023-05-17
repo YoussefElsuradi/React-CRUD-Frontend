@@ -14,6 +14,7 @@ const EmployeeView = (props) => {
     <div>
       <h1>{employee.employee_first_name}</h1>
       <h3>{employee.department_name}</h3>
+      <Link to={`/editemployee/${employee.id}`}>Edit employee information</Link>
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
         <div>
           Assigned tasks:

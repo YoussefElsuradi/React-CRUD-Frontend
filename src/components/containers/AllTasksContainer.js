@@ -1,26 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  fetchAllTasksThunk,
-  deleteTaskThunk
-} from '../../store/thunks';
+import { fetchAllTasksThunk, deleteTaskThunk } from '../../store/thunks';
 import AllTasksView from '../views/AllTasksView';
 
-const AllTasksContainer = ({
-  allTasks,
-  fetchAllTasks,
-  deleteTask
-}) => {
+const AllTasksContainer = ({ allTasks, fetchAllTasks, deleteTask }) => {
   useEffect(() => {
     fetchAllTasks();
-  }, []);
+  }, [fetchAllTasks]);
 
   return (
     <div>
-      <AllTasksView
-        tasks={allTasks}
-        deleteTask={deleteTask}
-      />
+      <AllTasksView tasks={allTasks} deleteTask={deleteTask} />
     </div>
   );
 };
