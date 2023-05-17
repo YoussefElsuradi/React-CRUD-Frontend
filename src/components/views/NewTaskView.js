@@ -1,5 +1,5 @@
 const NewTaskView = (props) => {
-    const {handleChange, handleSubmit, error } = props;
+    const {handleChange, handleSubmit, handleCheckboxChange, error } = props;
   
     return (
       <div className="root">
@@ -26,7 +26,7 @@ const NewTaskView = (props) => {
             <br/>
   
             <label style={{color:'#11153e', fontWeight: 'bold'}}>Completion Status:</label>
-            <input type="checkbox" checked="completion_status" onChange={(e) => handleChange(e)} />
+            <input type="checkbox" checked={props.completionStatus} onChange={handleCheckboxChange} />
             <br/>
             <br/>
   

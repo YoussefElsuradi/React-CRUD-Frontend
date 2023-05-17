@@ -23,6 +23,13 @@ const NewTaskContainer = ({ addTask, fetchEmployee }) => {
     });
   };
 
+  const handleCheckboxChange = event => {
+    setState({
+      ...state,
+      completion_status: event.target.checked
+    });
+  };
+
   const handleSubmit = async event => {
     event.preventDefault();
     if (state.description === '') {
@@ -61,7 +68,9 @@ const NewTaskContainer = ({ addTask, fetchEmployee }) => {
     <NewTaskView
       handleChange={handleChange}
       handleSubmit={handleSubmit}
+      handleCheckboxChange={handleCheckboxChange}
       error={state.error}
+      completionStatus={state.completion_status}
     />
   );
 };

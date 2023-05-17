@@ -28,7 +28,8 @@ const EditTaskContainer = ({
     setState({
       description: task.description,
       priority_level: task.priority_level,
-      assigned_to: task.assigned_to
+      assigned_to: task.assigned_to,
+      completion_status: task.completion_status,
     });
   }, []);
 
@@ -36,6 +37,13 @@ const EditTaskContainer = ({
     setState({
       ...state,
       [event.target.name]: event.target.value
+    });
+  };
+
+  const handleCheckboxChange = event => {
+    setState({
+      ...state,
+      completion_status: event.target.checked
     });
   };
 
@@ -58,7 +66,7 @@ const EditTaskContainer = ({
       id: task.id,
       description: state.description,
       priority_level: state.priority_level,
-      completion_status: state.handleSelectChange,
+      completion_status: state.completion_status,
       assigned_to: state.assigned_to
     };
 
@@ -124,16 +132,15 @@ const EditTaskContainer = ({
         <br />
 
         <label style={{ color: '#11153e', fontWeight: 'bold' }}>
-          Completion Status:{' '}
-        </label>
-        <input
-          type="checkbox"
-          name="completion_status"
-          value={state.completion_status || ''}
-          placeholder={task.completion_status}
-          onChange={handleChange}
-        />
-        <br />
+      Completion Status:{' '}
+    </label>
+    <input
+      type="checkbox"
+      name="completion_status"
+      checked={state.completion_status}
+      onChange={handleCheckboxChange}
+    />
+    <br />
 
         <select onChange={handleSelectChange}>
         {task.employee !== null ? (
