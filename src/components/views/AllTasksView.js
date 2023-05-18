@@ -26,7 +26,7 @@ const AllTasksView = (props) => {
             <button className="button2">Add New Task</button>
         </Link>
         <Link to="/">
-            <button className="button2">Go to Home Page</button>
+            <button className="button2">Home Page</button>
         </Link>
         </div>
       </nav>

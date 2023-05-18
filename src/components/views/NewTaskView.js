@@ -12,7 +12,7 @@ const NewTaskView = (props) => {
         </div>
         <div className="navbar-links">
         <Link to="/">
-            <button className="button2">Go to Home Page</button>
+            <button className="button2">Home Page</button>
         </Link>
         </div>
       </nav>

@@ -113,7 +113,7 @@ const EditTaskContainer = ({
         </div>
         <div className="navbar-links">
         <Link to="/">
-            <button className="button2">Go to Home Page</button>
+            <button className="button2">Home Page</button>
         </Link>
         </div>
       </nav>
@@ -190,10 +190,10 @@ const EditTaskContainer = ({
     </span>
     {thisEmployee.map(employee => (
       <div key={employee.id} style={{ display: 'inline-block' }}>
-        <Link to={`/employees/${task.assigned_to}`}>
+        <Link className="link" to={`/employees/${task.assigned_to}`}>
           {employee.employee_first_name}
         </Link>
-        <button
+        <button className="button1"
           onClick={async () => {
             await editTask({ id: task.id, assigned_to: null });
             fetchTask(task.id);
@@ -214,10 +214,10 @@ const EditTaskContainer = ({
     {otherEmployees.map(employee => {
       return (
         <div key={employee.id}>
-          <Link to={`/employees/${employee.id}`}>
-            <h4>{employee.employee_first_name}</h4>
+          <Link className="link" to={`/employees/${employee.id}`}>
+            {employee.employee_first_name}
           </Link>
-          <button
+          <button className="button1"
             onClick={async () => {
               await editTask({ id: task.id, assigned_to: employee.id });
               fetchTask(task.id);
