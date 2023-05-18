@@ -43,6 +43,9 @@ const EmployeeView = (props) => {
           })}
         </div>
       </div>
+      <Link to="/">
+        <button>Go to Home Page</button>
+      </Link>
     </div>
   );
 };

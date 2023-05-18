@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const NewEmployeeView = (props) => {
     const {handleChange, handleSubmit, error } = props;
   
@@ -32,6 +34,10 @@ const NewEmployeeView = (props) => {
             <br/>
             <br/>
           </form>
+
+          <Link to="/">
+        <button>Go to Home Page</button>
+      </Link>
           {error!=="" && <p>{error}</p>}
           </div>
         </div>

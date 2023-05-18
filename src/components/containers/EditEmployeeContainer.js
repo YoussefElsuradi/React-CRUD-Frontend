@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 
 import { editEmployeeThunk } from '../../store/thunks';
 
@@ -101,6 +101,10 @@ const EditTaskContainer = ({ employee, editEmployee }) => {
 
         <button type="submit">Submit</button>
       </form>
+
+      <Link to="/">
+        <button>Go to Home Page</button>
+      </Link>
     </div>
   );
 };
