@@ -40,13 +40,13 @@ export const deleteEmployeeThunk = employeeId => async dispatch => {
 // Edit Employee
 export const editEmployeeThunk = employee => async dispatch => {
     try {
-      const { id, ...employeeData } = employee; // Destructure the id from the employee object
-      let res = await axios.put(`${path}/employees/${id}`, employeeData); // Use the id in the API request
-      dispatch(ac.editEmployee(res.data));
-    } catch (err) {
-      console.error(err);
+        let res = await axios.put(`${path}/employees/${employee.id}`, employee);
+        dispatch(ac.editEmployee(res.data));
+    } 
+    catch(err) {
+        console.error(err);
     }
-  };
+};
 
 // Single Employee
 export const fetchEmployeeThunk = (id) => async (dispatch) => {

@@ -38,10 +38,10 @@ const NewTaskContainer = ({ addTask, fetchEmployee }) => {
     }
 
     const employee = await fetchEmployee(state.assigned_to);
-  if (!employee) {
-    setState({ ...state, error: 'Invalid employee ID' });
-    return;
-  }
+    if (employee === null) {
+      setState({ ...state, error: 'Invalid employee ID' });
+      return;
+    }
 
     let task = {
       description: state.description,
