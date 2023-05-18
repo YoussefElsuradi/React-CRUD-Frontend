@@ -1,20 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import ErrorBoundary from './ErrorBoundary';
+import {
+  HomePageContainer,
+  AllEmployeesContainer,
+  EmployeeContainer,
+  AllTasksContainer,
+  TaskContainer,
+  NewTaskContainer,
+  EditTaskContainer,
+  EditEmployeeContainer,
+  NewEmployeeContainer
+} from './components/containers';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        
-        <h1>Employee Management app </h1>
-        <p>
-
-        </p>
-
-
-        <a>
-        </a>
-      </header>
+      <ErrorBoundary>
+      <Routes>
+        <Route path="/" Component={HomePageContainer} />
+        <Route path="/employees" Component={AllEmployeesContainer} />
+        <Route path="/employees/:id" Component={EmployeeContainer} />
+        <Route path="/tasks" Component={AllTasksContainer} />
+        <Route path="/newtask" Component={NewTaskContainer} />
+        <Route path="/tasks/:id" Component={TaskContainer} />
+        <Route path="/edittask/:id" Component={EditTaskContainer} />
+        <Route path="/editemployee/:id" Component={EditEmployeeContainer} />
+        <Route path="/newemployee" Component={NewEmployeeContainer} />
+      </Routes>
+      </ErrorBoundary>
     </div>
   );
 }
