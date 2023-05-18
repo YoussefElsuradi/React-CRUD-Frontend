@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Navigate, Link } from 'react-router-dom';
+import logo from '../img/logo192.png';
 
 import { fetchTaskThunk, editTaskThunk, fetchAllEmployeesThunk } from '../../store/thunks';
 
@@ -106,6 +107,18 @@ const EditTaskContainer = ({
 
   return (
     <div>
+      <nav className="navbar">
+        <div className="navbar-logo">
+          <img src={logo} alt="logo" />
+        </div>
+        <div className="navbar-links">
+        <Link to="/">
+            <button className="button2">Go to Home Page</button>
+        </Link>
+        </div>
+      </nav>
+    <div>
+      <h2>Edit Task Information</h2>
       <form style={{ textAlign: 'center' }} onSubmit={handleSubmit}>
         <label style={{ color: '#11153e', fontWeight: 'bold' }}>
           Description:{' '}
@@ -117,7 +130,8 @@ const EditTaskContainer = ({
           placeholder={task.description}
           onChange={handleChange}
         />
-        <br />
+        <br/>
+        <br/>
 
         <label style={{ color: '#11153e', fontWeight: 'bold' }}>
           Priority Level:{' '}
@@ -129,7 +143,8 @@ const EditTaskContainer = ({
           placeholder={task.priority_level}
           onChange={handleChange}
         />
-        <br />
+        <br/>
+        <br/>
 
         <label style={{ color: '#11153e', fontWeight: 'bold' }}>
       Completion Status:{' '}
@@ -140,7 +155,8 @@ const EditTaskContainer = ({
       checked={state.completion_status}
       onChange={handleCheckboxChange}
     />
-    <br />
+    <br/>
+    <br/>
 
         <select onChange={handleSelectChange}>
         {task.employee !== null ? (
@@ -162,7 +178,7 @@ const EditTaskContainer = ({
             {task.employee !== null && <option value="employee">Employee</option>}
             </select>  
 
-            <button type="submit">Submit</button>
+            <button className="button1" type="submit">Submit</button>
   </form>
 
   {state.error !== '' && <p>{state.error}</p>}
@@ -207,14 +223,12 @@ const EditTaskContainer = ({
               fetchTask(task.id);
             }}
           >
-            Assign this employee
+            Assign to this employee
           </button>
         </div>
       );
     })}
-    <Link to="/">
-        <button>Go to Home Page</button>
-      </Link>
+  </div>
   </div>
 </div>);
 };

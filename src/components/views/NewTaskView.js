@@ -1,9 +1,21 @@
 import { Link } from 'react-router-dom';
+import logo from '../img/logo192.png';
 
 const NewTaskView = (props) => {
     const {handleChange, handleSubmit, handleCheckboxChange, error } = props;
   
     return (
+      <div>
+      <nav className="navbar">
+        <div className="navbar-logo">
+          <img src={logo} alt="logo" />
+        </div>
+        <div className="navbar-links">
+        <Link to="/">
+            <button className="button2">Go to Home Page</button>
+        </Link>
+        </div>
+      </nav>
       <div className="root">
         <div className="formContainer">
           <div className="formDesciption">
@@ -28,22 +40,19 @@ const NewTaskView = (props) => {
             <br/>
   
             <label style={{color:'#11153e', fontWeight: 'bold'}}>Completion Status:</label>
-            <input type="checkbox" checked={props.completionStatus} onChange={handleCheckboxChange} />
+            <input type="checkbox" checked={props.completionStatus} onChange={handleCheckboxChange} className="checkbox"/>
             <br/>
             <br/>
   
-            <button type="submit">
+            <button className="button1" type="submit">
               Submit
             </button>
             <br/>
             <br/>
           </form>
-
-          <Link to="/">
-        <button>Go to Home Page</button>
-      </Link>
           {error!=="" && <p>{error}</p>}
           </div>
+        </div>
         </div>
       
     )

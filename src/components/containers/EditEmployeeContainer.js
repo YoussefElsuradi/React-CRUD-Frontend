@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Navigate, Link } from 'react-router-dom';
+import logo from '../img/logo192.png';
 
 import { editEmployeeThunk } from '../../store/thunks';
 
@@ -62,6 +63,18 @@ const EditTaskContainer = ({ employee, editEmployee }) => {
 
   return (
     <div>
+      <nav className="navbar">
+        <div className="navbar-logo">
+          <img src={logo} alt="logo" />
+        </div>
+        <div className="navbar-links">
+        <Link to="/">
+            <button className="button2">Go to Home Page</button>
+        </Link>
+        </div>
+      </nav>
+      <div>
+        <h2>Edit Employee Information</h2>
       <form style={{ textAlign: 'center' }} onSubmit={handleSubmit}>
         <label style={{ color: '#11153e', fontWeight: 'bold' }}>
           Employee First Name:{' '}
@@ -73,7 +86,8 @@ const EditTaskContainer = ({ employee, editEmployee }) => {
           placeholder={employee.employee_first_name}
           onChange={handleChange}
         />
-        <br />
+        <br/>
+        <br/>
 
         <label style={{ color: '#11153e', fontWeight: 'bold' }}>
           Employee Last Name:{' '}
@@ -85,7 +99,8 @@ const EditTaskContainer = ({ employee, editEmployee }) => {
           placeholder={employee.employee_last_name}
           onChange={handleChange}
         />
-        <br />
+        <br/>
+        <br/>
 
         <label style={{ color: '#11153e', fontWeight: 'bold' }}>
           Department Name:{' '}
@@ -97,14 +112,13 @@ const EditTaskContainer = ({ employee, editEmployee }) => {
           placeholder={employee.department_name}
           onChange={handleChange}
         />
-        <br />
+        <br/>
+        <br/>
 
-        <button type="submit">Submit</button>
+        <button className="button1" type="submit">Submit</button>
       </form>
 
-      <Link to="/">
-        <button>Go to Home Page</button>
-      </Link>
+    </div>
     </div>
   );
 };
