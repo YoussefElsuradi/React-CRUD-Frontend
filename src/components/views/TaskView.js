@@ -20,6 +20,16 @@ const TaskView = (props) => {
         </Link>
         </div>
       </nav>
+      <div className="container">
+        <div className="left">
+          <Link to="/tasks">
+            <button className="button1">Back</button>
+          </Link>
+        </div>
+        <div class="center">
+          <h2>Task</h2>
+        </div>
+      </div>
     <div>
       <h1>{task.description}</h1>
       {task.assigned_to ? (

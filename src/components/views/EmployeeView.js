@@ -23,6 +23,16 @@ const EmployeeView = (props) => {
         </Link>
         </div>
       </nav>
+      <div className="container">
+        <div className="left">
+          <Link to="/employees">
+            <button className="button1">Back</button>
+          </Link>
+        </div>
+        <div class="center">
+          <h2>Employee</h2>
+        </div>
+      </div>
     <div>
       <h1>{employee.employee_first_name}</h1>
       <h3>{employee.department_name}</h3>

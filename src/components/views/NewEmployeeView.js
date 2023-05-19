@@ -19,9 +19,16 @@ const NewEmployeeView = (props) => {
       <div className="root">
         <div className="formContainer">
           <div className="formDesciption">
-            <h2 style={{fontWeight: 'bold', fontFamily: 'Courier, sans-serif', fontSize: '20px', color: '#11153e'}}>
-              New Employee
-            </h2>
+          <div className="container">
+        <div className="left">
+          <Link to="/employees">
+            <button className="button1">Back</button>
+          </Link>
+        </div>
+        <div class="center">
+          <h2>New Employee</h2>
+        </div>
+      </div>
           </div>
           <form style={{textAlign: 'center'}} onSubmit={(e) => handleSubmit(e)}>
             <label style= {{color:'#11153e', fontWeight: 'bold'}}>First Name: </label>

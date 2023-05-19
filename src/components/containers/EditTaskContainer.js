@@ -117,8 +117,17 @@ const EditTaskContainer = ({
         </Link>
         </div>
       </nav>
+      <div className="container">
+        <div className="left">
+          <Link to="/tasks">
+            <button className="button1">Back</button>
+          </Link>
+        </div>
+        <div class="center">
+          <h2>Edit Task Information</h2>
+        </div>
+      </div>
     <div>
-      <h2>Edit Task Information</h2>
       <form style={{ textAlign: 'center' }} onSubmit={handleSubmit}>
         <label style={{ color: '#11153e', fontWeight: 'bold' }}>
           Description:{' '}

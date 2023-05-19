@@ -30,6 +30,16 @@ const AllTasksView = (props) => {
         </Link>
         </div>
       </nav>
+      <div className="container">
+        <div className="left">
+          <Link to="/">
+            <button className="button1">Back</button>
+          </Link>
+        </div>
+        <div class="center">
+          <h2>All Tasks</h2>
+        </div>
+      </div>
         <div>
             {tasks.map((task) => {
                 let description = task.description;

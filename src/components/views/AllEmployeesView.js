@@ -30,6 +30,16 @@ const AllEmployeesView = (props) => {
       </Link>
         </div>
       </nav>
+      <div className="container">
+        <div className="left">
+          <Link to="/">
+            <button className="button1">Back</button>
+          </Link>
+        </div>
+        <div class="center">
+          <h2>All Employees</h2>
+        </div>
+      </div>
       
     <div>
       {employees.map((employee) => {
