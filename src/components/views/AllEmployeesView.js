@@ -44,9 +44,11 @@ const AllEmployeesView = (props) => {
     <div>
       {employees.map((employee) => {
         let first_name = employee.employee_first_name;
+        let id = employee.id;
         return (
           <div key={employee.id}>
             <Link to={`/employees/${employee.id}`} className="link">
+            <div>ID: {id}</div>
               {first_name}
             </Link>
             <button onClick={() => deleteEmployee(employee.id)} className="button1">Delete</button>
