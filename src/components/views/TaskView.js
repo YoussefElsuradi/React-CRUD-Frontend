@@ -31,11 +31,17 @@ const TaskView = (props) => {
       <h1>{task.description}</h1>
       {task.assigned_to ? (
         <h3>
-          Employee: {employee.employee_first_name} {employee.employee_last_name}
+          Employee: {employee.employee_first_name} {employee.employee_last_name} 
         </h3>
       ) : (
         <h3>Unassigned</h3>
       )}
+      
+        <div className="complete">
+           Completion Status: {task.completion_status ? 'Complete' : 'Incomplete'}
+
+        </div>
+        <br/>
       <Link to={`/edittask/${task.id}`} className="link">Edit task information</Link>
       <br />
     </div>
