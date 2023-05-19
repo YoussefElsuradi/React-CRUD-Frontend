@@ -8,12 +8,13 @@ import { addTaskThunk, fetchEmployeeThunk } from '../../store/thunks';
 const NewTaskContainer = ({ addTask, fetchEmployee }) => {
   const [state, setState] = useState({
     description: '',
-    priority_level: '',
+    priority_level: null,
     assigned_to: null,
     completion_status: false,
     redirect: false,
     redirectId: null,
-    error: ''
+    error: '',
+    employees: []
   });
 
   const handleChange = event => {
@@ -36,28 +37,39 @@ const NewTaskContainer = ({ addTask, fetchEmployee }) => {
       setState({ ...state, error: 'Description field is required' });
       return;
     }
-
-    const employee = await fetchEmployee(state.assigned_to);
-  if (employee === null) {
-    setState({ ...state, error: 'Invalid employee ID' });
-    return;
-  }
-
-    let task = {
-      description: state.description,
-      priority_level: state.priority_level,
-      completion_status: state.completion_status,
-      assigned_to: state.assigned_to
-    };
-
-    let newTask = await addTask(task);
-
-    setState({
-      ...state,
-      redirect: true,
-      redirectId: newTask.id,
-      error: ''
-    });
+    
+    if (state.priority_level === null) {
+      setState({ ...state, error: 'Priority Level is required' });
+      return;
+    }
+    
+    try {
+      // const employee = await fetchEmployee(state.assigned_to);
+      // console.log(employee);
+      // if (employee === null) {
+      //   setState({ ...state, error: 'Invalid employee ID' });
+      //   return;
+      // }
+    
+      let task = {
+        description: state.description,
+        priority_level: state.priority_level,
+        completion_status: state.completion_status,
+        assigned_to: state.assigned_to
+      };
+  
+      let newTask = await addTask(task);
+  
+      setState({
+        ...state,
+        redirect: true,
+        redirectId: newTask.id,
+        error: ''
+      });
+    } catch (error) {
+      // Handle any errors that occur during the asynchronous operations
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -75,8 +87,8 @@ const NewTaskContainer = ({ addTask, fetchEmployee }) => {
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       handleCheckboxChange={handleCheckboxChange}
-      error={state.error}
       completionStatus={state.completion_status}
+      error={state.error}
     />
   );
 };

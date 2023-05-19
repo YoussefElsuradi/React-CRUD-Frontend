@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Navigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import logo from '../img/logo192.png';
 
 import { editEmployeeThunk } from '../../store/thunks';
@@ -45,6 +45,7 @@ const EditTaskContainer = ({ employee, editEmployee }) => {
 
     try {
       await editEmployee(newEmployee);
+      navigate(`/employees/${employee.id}`);
       setState({ ...state, redirect: true, error: '' });
     } catch (error) {
       console.error(error);
@@ -57,9 +58,11 @@ const EditTaskContainer = ({ employee, editEmployee }) => {
     };
   }, []);
 
-  if (state.redirect) {
-    return <Navigate to="/employees" />;
-  }
+  const navigate = useNavigate();
+
+  // if (state.redirect) {
+  //   return <Navigate to="/employees" />;
+  // }
 
   return (
     <div>
