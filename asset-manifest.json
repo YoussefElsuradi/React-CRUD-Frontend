@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/React-CRUD-Frontend/static/css/main.073c9b0a.css",
-    "main.js": "/React-CRUD-Frontend/static/js/main.7038a3bb.js",
+    "main.css": "/React-CRUD-Frontend/static/css/main.1bd344f5.css",
+    "main.js": "/React-CRUD-Frontend/static/js/main.47f1cb4f.js",
     "static/js/787.ad4f4dcc.chunk.js": "/React-CRUD-Frontend/static/js/787.ad4f4dcc.chunk.js",
     "index.html": "/React-CRUD-Frontend/index.html",
-    "main.073c9b0a.css.map": "/React-CRUD-Frontend/static/css/main.073c9b0a.css.map",
-    "main.7038a3bb.js.map": "/React-CRUD-Frontend/static/js/main.7038a3bb.js.map",
+    "main.1bd344f5.css.map": "/React-CRUD-Frontend/static/css/main.1bd344f5.css.map",
+    "main.47f1cb4f.js.map": "/React-CRUD-Frontend/static/js/main.47f1cb4f.js.map",
     "787.ad4f4dcc.chunk.js.map": "/React-CRUD-Frontend/static/js/787.ad4f4dcc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.7038a3bb.js"
+    "static/css/main.1bd344f5.css",
+    "static/js/main.47f1cb4f.js"
   ]
 }
