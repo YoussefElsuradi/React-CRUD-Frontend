@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, HashRouter  } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import {
   HomePageContainer,
@@ -13,10 +13,12 @@ import {
   NewEmployeeContainer
 } from './components/containers';
 
+
 function App() {
   return (
     <div className="App">
-      <ErrorBoundary>
+      
+      <HashRouter>
       <Routes>
         <Route path="/" Component={HomePageContainer} />
         <Route path="/employees" Component={AllEmployeesContainer} />
@@ -28,7 +30,7 @@ function App() {
         <Route path="/editemployee/:id" Component={EditEmployeeContainer} />
         <Route path="/newemployee" Component={NewEmployeeContainer} />
       </Routes>
-      </ErrorBoundary>
+      </HashRouter>
     </div>
   );
 }
