@@ -6,11 +6,34 @@ const AllTasksView = (props) => {
 
     if (!tasks.length){
         return (
+          <div>
+      <nav className="navbar">
+        <div className="navbar-logo">
+          <img src={logo} alt="logo" />
+        </div>
+        <div className="navbar-links">
+        <Link to="/newtask">
+        <button className="button2">Add New Task</button>
+      </Link>
+      <Link to="/">
+        <button className="button2">Home Page</button>
+      </Link>
+        </div>
+      </nav>
+      <div className="container">
+        <div className="left">
+          <Link to="/">
+            <button className="button1">Back</button>
+          </Link>
+        </div>
+        <div class="center">
+          <h2>All Tasks</h2>
+        </div>
+      </div>
             <div>
                 <p>There are no Tasks</p>
-                <Link to={`/newtask`}>
-                    <button>Add New Task</button>
-                </Link>
+                <p>Please add task to continue </p>
+            </div>
             </div>
         );
     }

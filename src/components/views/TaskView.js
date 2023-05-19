@@ -23,11 +23,8 @@ const TaskView = (props) => {
       <div className="container">
         <div className="left">
           <Link to="/tasks">
-            <button className="button1">Back</button>
+            <button style={{ marginTop: '16px' }} className="button1">Back</button>
           </Link>
-        </div>
-        <div class="center">
-          <h2>Task</h2>
         </div>
       </div>
     <div>
