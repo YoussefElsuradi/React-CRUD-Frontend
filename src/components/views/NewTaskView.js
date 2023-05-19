@@ -11,6 +11,7 @@ const NewTaskView = (props) => {
               New Task
             </h2>
           </div>
+          
           <form style={{textAlign: 'center'}} onSubmit={(e) => handleSubmit(e)}>
             <label style= {{color:'#11153e', fontWeight: 'bold'}}>Description: </label>
             <input type="text" name="description" onChange ={(e) => handleChange(e)} />
@@ -45,7 +46,6 @@ const NewTaskView = (props) => {
           {error!=="" && <p>{error}</p>}
           </div>
         </div>
-      
     )
   }
   
