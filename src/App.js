@@ -1,23 +1,13 @@
 
 
+
+
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import ErrorBoundary from './ErrorBoundary';
-import {
-  HomePageContainer,
-  AllEmployeesContainer,
-  EmployeeContainer,
-  AllTasksContainer,
-  TaskContainer,
-  NewTaskContainer,
-  EditTaskContainer,
-  EditEmployeeContainer,
-  NewEmployeeContainer
-} from './components/containers';
 
 function App() {
   return (
     <div className="App">
+
       <ErrorBoundary>
       <Routes>
         <Route path="/" Component={HomePageContainer} />
@@ -34,10 +24,9 @@ function App() {
         <Route path="/newemployee" Component={NewEmployeeContainer} />
       </Routes>
       </ErrorBoundary>
+
     </div>
   );
 }
 
 export default App;
-
-// ----------------------------------------------------------------
