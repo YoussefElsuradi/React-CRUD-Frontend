@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Navigate, Link } from 'react-router-dom';
 import logo from '../img/logo192.png';
+import { useParams } from 'react-router-dom';
+
 
 import { fetchTaskThunk, editTaskThunk, fetchAllEmployeesThunk } from '../../store/thunks';
 
@@ -22,9 +24,9 @@ const EditTaskContainer = ({
     redirectId: null,
     error: ''
   });
-
+  const { id } = useParams();
   useEffect(() => {
-    fetchTask();
+    fetchTask(id);
     fetchEmployee();
     setState({
       description: task.description,
