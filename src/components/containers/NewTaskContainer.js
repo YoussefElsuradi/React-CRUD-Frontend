@@ -37,6 +37,7 @@ const NewTaskContainer = ({ addTask, fetchEmployee }) => {
       setState({ ...state, error: 'Description field is required' });
       return;
     }
+    
     if (state.priority_level === null) {
       setState({ ...state, error: 'Priority Level is required' });
       return;
